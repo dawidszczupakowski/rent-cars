@@ -1,37 +1,28 @@
- var express = require('express');
- var cookieParser = require('cookie-parser');
- var bodyParser = require('body-parser');
- var http = require('http');
- 
- var app = express();
- app.use(bodyParser.json());
- app.use(bodyParser.urlencoded({
-   extended: false
- }));
- app.use(cookieParser());
-
-var server = http.createServer(app);
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+const globalController = require("../api/controllers/global.controller");
 
 
- app.get('/', function (req, res) {
-   res.send('Hello World!');
- });
- app.on('error', onError);
- app.listen(3000, onListening);
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
+globalController.setEndpoints(app);
 
- app.use(function (req, res, next) {
-   res.header("Access-Control-Allow-Origin", "*");
-   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-   next();
- });
+app.on('error', onError);
+app.listen(3000, onListening);
 
  function onError(error) {
    if (error.syscall !== 'listen') {
      throw error;
    }
 
-   var bind = typeof port === 'string' ?
+   const bind = typeof port === 'string' ?
      'Pipe ' + port :
      'Port ' + port;
 
@@ -55,5 +46,5 @@ var server = http.createServer(app);
   */
 
  function onListening() {
-   
+  return console.log("server is running on port 3000");
  }
