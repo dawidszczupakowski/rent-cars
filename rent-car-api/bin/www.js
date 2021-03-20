@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const bodyParser = require("body-parser");
 const globalController = require("../api/controllers/global.controller");
 
 
@@ -12,10 +11,11 @@ app.use(function (req, res, next) {
   next();
 });
 
-globalController.setEndpoints(app);
 
 app.on('error', onError);
 app.listen(3000, onListening);
+
+globalController.setEndpoints(app);
 
  function onError(error) {
    if (error.syscall !== 'listen') {
