@@ -29,7 +29,8 @@ async function login(userCredential) {
         }
     }
     return {
-        status: "error"
+        status: "error",
+        message: "Błędny login lub hasło"
     };
 }
 

@@ -19,8 +19,24 @@ async function addTenant(tenant) {
     return knex("najemcy").insert(tenant);
 }
 
-async function getTenant(tenantId) {
-    return knex("najemcy").select("*").where("id", tenantId);
+async function getTenant(tenantId, userGuid) {
+    const user = await knex("admin").select("id").where("guid", userGuid);
+    if (user.length) {
+        return knex("najemcy").select("*").where("id", tenantId);
+    }
+    return {
+        status: "error"
+    }
+}
+
+async function getTenant(userGuid) {
+    const user = await knex("admin").select("id").where("guid", userGuid);
+    if (user.length) {
+        return knex("najemcy").select("*");
+    }
+    return {
+        status: "error"
+    }
 }
 
 module.exports = {
