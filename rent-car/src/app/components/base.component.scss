@@ -1,0 +1,11 @@
+.app-root {
+    background-color: rgb(240, 240, 240);
+    height: 100%;
+    padding-bottom: 30px;
+
+    .content {
+        width: 70%;
+        margin: 30px auto;
+        background-image: linear-gradient(135deg, #e4e3e3 0, #b9b9b9 100%);
+    }
+}

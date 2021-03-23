@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HelperService } from '../services/helper.service';
 
 @Component({
   selector: 'app-base',
@@ -6,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./base.component.scss']
 })
 export class BaseComponent implements OnInit {
+  title: Observable<string> = this.helperService.title;
 
-  constructor() { }
+  constructor(private helperService: HelperService) { }
 
   ngOnInit(): void {
   }

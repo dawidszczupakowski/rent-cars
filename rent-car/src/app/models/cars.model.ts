@@ -11,5 +11,5 @@ export interface CarsModel {
     dodatkoweInformacje: string;
     cena: number;
     status: CarStatusEnum;
-    zdjecie?: string;
+    zdjecie?: any;
 }

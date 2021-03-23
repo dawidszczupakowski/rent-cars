@@ -7,17 +7,25 @@ import { HttpInterceptorService } from './services/http-interceptor.service';
 import { BaseComponent } from './components/base.component';
 import { RouteRoutes } from './route.routing';
 import { HeaderComponent } from './shared/header/header.component';
+import { CarListComponent } from './components/car-list/car-list.component';
+import { CarDetailsComponent } from './components/car-list/car-details/car-details.component';
+import { MaterialsModule } from './materials.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
     BaseComponent,
-    HeaderComponent
+    HeaderComponent,
+    CarListComponent,
+    CarDetailsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouteRoutes
+    RouteRoutes,
+    BrowserAnimationsModule,
+    MaterialsModule,
   ],
   providers: [
     {
