@@ -16,7 +16,7 @@
           <img class="cars-list__car-panel__image" [src]="car.zdjecie[0]" onerror="this.src = '../../../assets/no-foto.png'">
       </mat-card-content>
       <div class="cars-list__car-panel__actions">
-          <button mat-raised-button color="primary">Wybieram</button>
+          <button mat-raised-button color="primary" (click)="goToCarDetails(car.id)">Wybieram</button>
       </div>
     </mat-card>
   </div>

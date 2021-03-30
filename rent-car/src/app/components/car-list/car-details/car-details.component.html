@@ -1,1 +1,37 @@
-<p>car-details works!</p>
+<mat-card *ngIf="car" class="car-details__car-panel">
+  <mat-card-title>
+    <div class="car-details__car-panel__header">
+      <div class="car-details__car-panel__header__car">
+        {{ car.marka }} {{ car.model }}
+      </div>
+      <div class="car-details__car-panel__header__price">
+        {{car.cena}}
+      </div>
+    </div>
+  </mat-card-title>
+  <mat-card-content>
+    <div class="car-details__car-panel__content">
+      <div class="car-details__car-panel__image">
+        <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+          <mdb-carousel-item *ngFor="let zdj of car.zdjecie; let i = index">
+            <img class="d-block w-100" [src]="zdj">
+          </mdb-carousel-item>
+        </mdb-carousel>
+      </div>
+      <div class="car-details__car-panel__info">
+        <h1>Dane:</h1>
+        <h2><b>Marka: </b>{{car.marka}}</h2>
+        <h2><b>Model: </b>{{car.model}}</h2>
+        <h2><b>Rodzaj silnika: </b>{{car.rodzajSilnika}}</h2>
+        <h2><b>Moc silnika: </b>{{car.mocSilnika}}</h2>
+        <h2><b>Pojemność: </b>{{car.pojemnoscSilnika}}</h2>
+        <h2><b>Masa pojazdu: </b>{{car.waga}}</h2>
+        <h2><b>Dodatkowe informacje: </b>{{car.dodatkoweInformacje}}</h2>
+        <h2><b>Cena: </b>{{car.cena}}</h2>
+      </div>
+    </div>
+  </mat-card-content>
+  <div class="car-details__car-panel__actions">
+    <button mat-raised-button color="primary" (click)="openReserveCar()">Zamów</button>
+  </div>
+</mat-card>

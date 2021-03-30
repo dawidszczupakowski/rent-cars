@@ -8,7 +8,7 @@ import { HelperService } from '../services/helper.service';
   styleUrls: ['./base.component.scss']
 })
 export class BaseComponent implements OnInit {
-  title: Observable<string> = this.helperService.title;
+  _title$: Observable<string> = this.helperService._title$;
 
   constructor(private helperService: HelperService) { }
 

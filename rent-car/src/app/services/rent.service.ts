@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RentModel } from '../models/rent.model';
+import { RentModel, RentNewCarModel } from '../models/rent.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class RentService {
 
   constructor(private http: HttpClient) { }
 
-  addRent(carId: number, rent: RentModel): Observable<any> {
+  addRent(carId: number, rent: RentNewCarModel): Observable<any> {
     return this.http.post<any>(`rent/${carId}`, rent);
   }
 

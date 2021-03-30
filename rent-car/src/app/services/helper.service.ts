@@ -5,11 +5,15 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class HelperService {
-  title: BehaviorSubject<string> = new BehaviorSubject<string>('Dostępne samochody');
+  title$: BehaviorSubject<string> = new BehaviorSubject<string>('Dostępne samochody');
+
+  get _title$() {
+    return this.title$;
+  }
 
   constructor() { }
 
   setTitle(title: string): void {
-    this.title.next(title);
+    this.title$.next(title);
   }
 }

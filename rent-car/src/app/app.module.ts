@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -11,6 +11,10 @@ import { CarListComponent } from './components/car-list/car-list.component';
 import { CarDetailsComponent } from './components/car-list/car-details/car-details.component';
 import { MaterialsModule } from './materials.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { CarRentDialogComponent } from './components/car-list/car-details/car-rent-dialog/car-rent-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -18,22 +22,27 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BaseComponent,
     HeaderComponent,
     CarListComponent,
-    CarDetailsComponent
+    CarDetailsComponent,
+    CarRentDialogComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    ReactiveFormsModule,
     RouteRoutes,
     BrowserAnimationsModule,
     MaterialsModule,
+    MDBBootstrapModule.forRoot(),
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
-      multi: true
+      multi: true,
     },
+    { provide: LOCALE_ID, useValue: 'pl' },
+    {provide: MAT_DATE_LOCALE, useValue: 'pl-PL'},
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
