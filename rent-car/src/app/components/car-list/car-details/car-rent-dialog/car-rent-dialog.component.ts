@@ -1,10 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { CarStatusEnum } from 'src/app/enums/car-status.enum';
 import { CarsModel } from 'src/app/models/cars.model';
 import { RentNewCarModel } from 'src/app/models/rent.model';
 import { RentService } from 'src/app/services/rent.service';
+import { ConfirmRentCarComponent } from '../confirm-rent-car/confirm-rent-car.component';
+import { RentCarSuccessComponent } from '../rent-car-success/rent-car-success.component';
 
 @Component({
   selector: 'app-car-rent-dialog',
@@ -20,7 +23,8 @@ export class CarRentDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<CarRentDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: CarsModel,
     private formBuilder: FormBuilder,
-    private rentService: RentService
+    private dialog: MatDialog,
+    private router: Router
 
   ) { }
 
@@ -113,8 +117,19 @@ export class CarRentDialogComponent implements OnInit {
       rodzajSilnika: this.car.rodzajSilnika,
     };
 
-    this.rentService.addRent(rent).subscribe((response) => {
-      this.dialogRef.close({ status: true });
+    const dialogRef = this.dialog.open(ConfirmRentCarComponent, {
+      width: '40%',
+      data: rent
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result?.status) {
+        this.dialogRef.close({ status: true });
+        this.router.navigate(['']);
+        this.dialog.open(RentCarSuccessComponent, {
+          width: '30%'
+        });
+      }
     });
   }
 }

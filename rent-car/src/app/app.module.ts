@@ -13,8 +13,10 @@ import { MaterialsModule } from './materials.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { CarRentDialogComponent } from './components/car-list/car-details/car-rent-dialog/car-rent-dialog.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { ConfirmRentCarComponent } from './components/car-list/car-details/confirm-rent-car/confirm-rent-car.component';
+import { RentCarSuccessComponent } from './components/car-list/car-details/rent-car-success/rent-car-success.component';
 
 @NgModule({
   declarations: [
@@ -24,11 +26,14 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     CarListComponent,
     CarDetailsComponent,
     CarRentDialogComponent,
+    ConfirmRentCarComponent,
+    RentCarSuccessComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     RouteRoutes,
     BrowserAnimationsModule,
     MaterialsModule,

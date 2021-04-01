@@ -13,11 +13,14 @@
       </mat-card-title>
       <mat-card-subtitle>{{car.rodzajSilnika}} {{car.pojemnoscSilnika}} {{car.mocSilnika}}</mat-card-subtitle>
       <mat-card-content>
-          <img class="cars-list__car-panel__image" [src]="car.blob[0]" onerror="this.src = '../../../assets/no-foto.png'">
+        <img class="cars-list__car-panel__image" [src]="car.blob[0]" onerror="this.src = '../../../assets/no-foto.png'">
       </mat-card-content>
       <div class="cars-list__car-panel__actions">
-          <button mat-raised-button color="primary" (click)="goToCarDetails(car.id)">Wybieram</button>
+        <button mat-raised-button color="primary" (click)="goToCarDetails(car.id)">Wybieram</button>
       </div>
     </mat-card>
+  </div>
+  <div *ngIf="!carsExist" class="w-100 text-center">
+    <h1>Aktualnie brak aut na stanie. Wróć za jakiś czas.</h1>
   </div>
 </div>

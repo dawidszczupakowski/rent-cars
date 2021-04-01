@@ -1,0 +1,19 @@
+<div class="confirm-rent-dialog">
+  <mat-dialog-content>
+    <div class="row">
+      <div class="col-12">
+        <mat-checkbox [(ngModel)]="zgoda" color="primary"><span style="color: red">*</span>Potwierdzam zgodę na zawarcie umowy.</mat-checkbox>
+      </div>
+      <div class="col-12">
+        <mat-checkbox [(ngModel)]="regulamin" color="primary"><span style="color: red">*</span>Oświadczam, że zapoznałem się z treścią regulaminu.</mat-checkbox>
+      </div>
+    </div>
+
+    <hr class="action-hr">
+
+    <div class="actions">
+      <button mat-raised-button color="warn" (click)="cancel()">Anuluj</button>
+      <button mat-raised-button color="primary" (click)="confirmRent()">Potwierdzam</button>
+    </div>
+  </mat-dialog-content>
+</div>

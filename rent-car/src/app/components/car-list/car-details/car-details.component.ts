@@ -1,7 +1,6 @@
-import { ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CarsModel, CarsWithPhotoModel } from 'src/app/models/cars.model';
 import { CarsService } from 'src/app/services/cars.service';
 import { HelperService } from 'src/app/services/helper.service';
@@ -18,8 +17,7 @@ export class CarDetailsComponent implements OnInit {
     private helperService: HelperService,
     private carsService: CarsService,
     private aRoute: ActivatedRoute,
-    private dialog: MatDialog,
-    private router: Router
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -32,16 +30,10 @@ export class CarDetailsComponent implements OnInit {
   }
 
   openReserveCar(): void {
-    const dialogRef = this.dialog.open(CarRentDialogComponent, {
+    this.dialog.open(CarRentDialogComponent, {
       width: '40%',
       maxHeight: '90%',
       data: this.car
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result.status) {
-        this.router.navigate(['']);
-      }
     });
   }
 }

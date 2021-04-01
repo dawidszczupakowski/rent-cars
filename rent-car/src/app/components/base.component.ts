@@ -8,11 +8,16 @@ import { HelperService } from '../services/helper.service';
   styleUrls: ['./base.component.scss']
 })
 export class BaseComponent implements OnInit {
-  _title$: Observable<string> = this.helperService._title$;
+  title = '';
 
   constructor(private helperService: HelperService) { }
 
   ngOnInit(): void {
+    this.helperService.title$.subscribe((title) => {
+      setTimeout(() => {
+        this.title = title;
+      }, 0);
+    });
   }
 
 }
