@@ -1,4 +1,5 @@
 export enum CarStatusEnum {
     wolny = 1,
-    wypozyczony = 2,
+    doAkceptacji = 2,
+    wypozyczony = 3,
 }

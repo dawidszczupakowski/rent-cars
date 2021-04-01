@@ -10,12 +10,20 @@ async function createCar(userGuid, car) {
     };
 }
 
-function getCar(id) {
-    return knex("pojazdy").select("*").where("id", id);
+async function getCar(id) {
+    const car = await knex("pojazdy").select("*").where("id", id);
+    const blob = await knex("blob").select("blob").where("id", car[0].blobId);
+    car[0].blob = blob[0].blob;
+    return car;
 }
 
-function getAllCar() {
-    return knex("pojazdy").select("*");
+async function getAllCar() {
+    const cars = await knex("pojazdy").select("*");
+    for (const car of cars) {
+        const blob = await knex("blob").select("blob").where("id", car.blobId);
+        car.blob = blob[0].blob;
+    }
+    return cars;
 }
 
 async function updateCar(id, userGuid, car) {

@@ -2,12 +2,11 @@ const knex = require("../../db/knex");
 const tenantService = require("./tenants.service");
 const carService = require("./car.service");
 
-async function addRent(carId, rent) {
-    const car = await knex("pojazdy").select("id").where("id", carId);
-    if (car.length) {
-        rent.rentDetails.idPojazdu = parseInt(carId, 10);
+async function addRent(rent) {
+    if (rent.car.id) {
         const tenantId = await tenantService.addTenant(rent.tenant);
         rent.rentDetails.najemcaId = tenantId[0];
+        await knex("pojazdy").update(rent.car).where("id", rent.car.id);
         return knex("wypozyczone").insert(rent.rentDetails);
     }
     return {

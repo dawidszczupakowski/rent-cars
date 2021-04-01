@@ -1,24 +1,95 @@
-<div>
-  <form [formGroup]="form">
-    <h1><b>{{car?.marka}} {{car?.model}}</b></h1>
-    <h2>{{car?.cena}}</h2>
-    <div (click)="campaignOnePicker.open()">
-      <mat-form-field class="w-100" appearance="fill">
-        <mat-label>Wskaż termin wypożyczenia</mat-label>
-        <mat-date-range-input [rangePicker]="campaignOnePicker">
-          <input matStartDate placeholder="Początek" formControlName="wypozyczenieOd">
-          <input matEndDate placeholder="Koniec" formControlName="wypozyczenieDo">
-        </mat-date-range-input>
-        <mat-datepicker-toggle matSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
-        <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+<div class="car-rent-dialog">
+  <h1><b>{{car?.marka}} {{car?.model}}</b></h1>
+  <h2>{{car?.cena}}</h2>
+  <mat-dialog-content>
+    <form [formGroup]="form" class="row">
+
+      <mat-form-field class="col-6">
+        <mat-label>Imię</mat-label>
+        <input type="text" matInput [formControl]="imie">
+        <mat-error *ngIf="imie.hasError('required')">
+          Pole wymagane
+        </mat-error>
       </mat-form-field>
-    </div>
 
-    <hr class="action-hr">
+      <mat-form-field class="col-6">
+        <mat-label>Nazwisko</mat-label>
+        <input type="text" matInput [formControl]="nazwisko">
+        <mat-error *ngIf="nazwisko.hasError('required')">
+          Pole wymagane
+        </mat-error>
+      </mat-form-field>
 
-    <div class="actions">
-      <button mat-raised-button color="warn" (click)="cancel()">Anuluj</button>
-      <button mat-raised-button color="primary" (click)="rent()">Wypożycz</button>
-    </div>
-  </form>
+      <mat-form-field class="col-12">
+        <mat-label>PESEL</mat-label>
+        <input type="text" maxlength="11" matInput [formControl]="pesel">
+        <mat-error *ngIf="pesel.hasError('required')">
+          Pole wymagane
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-6">
+        <mat-label>NIP</mat-label>
+        <input type="text" matInput [formControl]="nip">
+        <mat-error *ngIf="nip.hasError('required')">
+          Pole wymagane
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-6">
+        <mat-label>Numer dowodu osobistego</mat-label>
+        <input type="text" matInput [formControl]="numerDowoduOsobistego">
+        <mat-error *ngIf="numerDowoduOsobistego.hasError('required')">
+          Pole wymagane
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-12">
+        <mat-label>Adres</mat-label>
+        <input type="text" placeholder="Kod pocztowy miejscowość, ulica numer domu/numer mieszkania" matInput
+          [formControl]="adres">
+        <mat-error *ngIf="adres.hasError('required')">
+          Pole wymagane
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-6">
+        <mat-label>Numer telefonu</mat-label>
+        <input type="text" matInput [formControl]="telefon">
+        <mat-error *ngIf="telefon.hasError('required')">
+          Pole wymagane
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-6">
+        <mat-label>Email</mat-label>
+        <input type="text" matInput [formControl]="email">
+        <mat-error *ngIf="email.hasError('email')">
+          Błędny format adresu email
+        </mat-error>
+      </mat-form-field>
+
+      <div class="col-12" (click)="campaignOnePicker.open()">
+        <mat-form-field class="w-100" appearance="fill">
+          <mat-label>Wskaż termin wypożyczenia</mat-label>
+          <mat-date-range-input [rangePicker]="campaignOnePicker" [min]="minDate" [max]="maxDate">
+            <input matStartDate placeholder="Początek" [formControl]="wypozyczenieOd">
+            <input matEndDate placeholder="Koniec" [formControl]="wypozyczenieDo">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
+          <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+          <mat-error *ngIf="wypozyczenieOd.hasError('required') || wypozyczenieDo.hasError('required')">
+            Pole wymagane
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <hr class="action-hr">
+      
+      <div class="actions">
+        <button mat-raised-button color="warn" (click)="cancel()">Anuluj</button>
+        <button mat-raised-button color="primary" (click)="rent()">Wypożycz</button>
+      </div>
+    </form>
+  </mat-dialog-content>
 </div>

@@ -1,3 +1,4 @@
+import { CarsModel } from './cars.model';
 import { TenantModel } from './tenant.model';
 
 export interface RentModel {
@@ -8,6 +9,8 @@ export interface RentModel {
     najemcaId?: number;
 }
 
-export interface RentNewCarModel extends RentModel {
+export interface RentNewCarModel {
+    rentDetails: RentModel;
     tenant: TenantModel;
+    car: CarsModel;
 }

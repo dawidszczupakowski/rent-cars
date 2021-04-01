@@ -4,8 +4,8 @@ async function addTenant(tenant) {
     let tenantExist = false;
     if (tenant.pesel) {
         tenantExist = await knex("najemcy").select("*").where({
-            pesel: tenant.pesel,
-            numerDowoduOsobistego: tenant.numerDowoduOsobistego
+            "pesel": tenant.pesel,
+            "numerDowoduOsobistego": tenant.numerDowoduOsobistego
         });
     } else {
         tenantExist = await knex("najemcy").select("*").where({

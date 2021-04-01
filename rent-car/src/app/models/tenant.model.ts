@@ -6,4 +6,6 @@ export interface TenantModel {
     nip: string;
     numberDowoduOsobistego: string;
     adres: string;
+    telefon: string;
+    email: string;
 }

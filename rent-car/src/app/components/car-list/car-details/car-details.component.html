@@ -13,8 +13,8 @@
     <div class="car-details__car-panel__content">
       <div class="car-details__car-panel__image">
         <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
-          <mdb-carousel-item *ngFor="let zdj of car.zdjecie; let i = index">
-            <img class="d-block w-100" [src]="zdj">
+          <mdb-carousel-item *ngFor="let zdj of car.blob; let i = index">
+            <img class="w-100" [src]="zdj">
           </mdb-carousel-item>
         </mdb-carousel>
       </div>

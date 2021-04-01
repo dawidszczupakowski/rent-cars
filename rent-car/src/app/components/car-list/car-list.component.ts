@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CarsModel } from 'src/app/models/cars.model';
+import { CarStatusEnum } from 'src/app/enums/car-status.enum';
+import { BlobModel } from 'src/app/models/blob.model';
+import { CarsModel, CarsWithPhotoModel } from 'src/app/models/cars.model';
+import { BlobService } from 'src/app/services/blob.service';
 import { CarsService } from 'src/app/services/cars.service';
 import { HelperService } from 'src/app/services/helper.service';
 
@@ -12,11 +15,14 @@ import { HelperService } from 'src/app/services/helper.service';
 })
 export class CarListComponent implements OnInit {
   carsList: CarsModel[] = [];
+  zdjecia: string[][] = [];
+  statusEnum = CarStatusEnum;
   constructor(
     private helperService: HelperService,
     private carsService: CarsService,
     public sanitizer: DomSanitizer,
-    private router: Router
+    private router: Router,
+    private blobService: BlobService
   ) { }
 
   ngOnInit(): void {
@@ -25,14 +31,13 @@ export class CarListComponent implements OnInit {
   }
 
   getCars(): void {
-    this.carsService.getAllCars().subscribe((cars: CarsModel[]) => {
+    this.carsService.getAllCars().subscribe((cars: CarsWithPhotoModel[]) => {
       this.carsList = cars;
       this.carsService.cars = cars;
     });
   }
 
   goToCarDetails(id: number): void {
-    console.log(id);
     this.router.navigate([`cars-list/car-detail/${id}`]);
   }
 }

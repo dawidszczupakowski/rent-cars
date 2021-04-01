@@ -11,5 +11,9 @@ export interface CarsModel {
     dodatkoweInformacje: string;
     cena: number;
     status: CarStatusEnum;
-    zdjecie?: any;
+    blobId: number;
+}
+
+export interface CarsWithPhotoModel extends CarsModel {
+    blob: string;
 }

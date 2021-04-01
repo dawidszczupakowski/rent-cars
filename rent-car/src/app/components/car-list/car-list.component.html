@@ -1,6 +1,6 @@
 <div class="cars-list">
   <div *ngFor="let car of carsList; let i = index" class="cars-list__content">
-    <mat-card class="cars-list__car-panel">
+    <mat-card *ngIf="car.status === statusEnum.wolny" class="cars-list__car-panel">
       <mat-card-title>
         <div class="cars-list__car-panel__header">
           <div class="cars-list__car-panel__header__car">
@@ -13,7 +13,7 @@
       </mat-card-title>
       <mat-card-subtitle>{{car.rodzajSilnika}} {{car.pojemnoscSilnika}} {{car.mocSilnika}}</mat-card-subtitle>
       <mat-card-content>
-          <img class="cars-list__car-panel__image" [src]="car.zdjecie[0]" onerror="this.src = '../../../assets/no-foto.png'">
+          <img class="cars-list__car-panel__image" [src]="car.blob[0]" onerror="this.src = '../../../assets/no-foto.png'">
       </mat-card-content>
       <div class="cars-list__car-panel__actions">
           <button mat-raised-button color="primary" (click)="goToCarDetails(car.id)">Wybieram</button>

@@ -44,4 +44,11 @@
       }
     }
   }
+
+}
+
+::ng-deep .carousel-inner {
+  display: flex;
+  align-items: center;
+  background-color: black;
 }

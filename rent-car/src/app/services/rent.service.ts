@@ -10,8 +10,8 @@ export class RentService {
 
   constructor(private http: HttpClient) { }
 
-  addRent(carId: number, rent: RentNewCarModel): Observable<any> {
-    return this.http.post<any>(`rent/${carId}`, rent);
+  addRent(rent: RentNewCarModel): Observable<any> {
+    return this.http.post<any>(`rent`, rent);
   }
 
   getRent(rentId: number, userGuid: string): Observable<RentModel> {

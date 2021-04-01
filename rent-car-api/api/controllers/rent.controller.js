@@ -1,8 +1,8 @@
 const db = require("../services/rent.service");
 
 function rentController(app) {
-    app.post("/rent/:carId", async (req, res) => {
-        const result = await db.addRent(req.params.carId, req.body);
+    app.post("/rent", async (req, res) => {
+        const result = await db.addRent(req.body);
         res.status(200).json({ result: result[0] })
     });
     

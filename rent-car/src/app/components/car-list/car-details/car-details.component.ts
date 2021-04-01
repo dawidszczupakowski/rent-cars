@@ -1,7 +1,8 @@
+import { ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CarsModel } from 'src/app/models/cars.model';
+import { CarsModel, CarsWithPhotoModel } from 'src/app/models/cars.model';
 import { CarsService } from 'src/app/services/cars.service';
 import { HelperService } from 'src/app/services/helper.service';
 import { CarRentDialogComponent } from './car-rent-dialog/car-rent-dialog.component';
@@ -24,7 +25,7 @@ export class CarDetailsComponent implements OnInit {
   ngOnInit(): void {
     Promise.resolve().then(() => this.helperService.setTitle('Szczegóły'));
     this.aRoute.params.subscribe((params) => {
-      this.carsService.getCar(params.id).subscribe((car: CarsModel) => {
+      this.carsService.getCar(params.id).subscribe((car: CarsWithPhotoModel) => {
         this.car = car;
       });
     });
@@ -32,7 +33,8 @@ export class CarDetailsComponent implements OnInit {
 
   openReserveCar(): void {
     const dialogRef = this.dialog.open(CarRentDialogComponent, {
-      width: '30%',
+      width: '40%',
+      maxHeight: '90%',
       data: this.car
     });
 
