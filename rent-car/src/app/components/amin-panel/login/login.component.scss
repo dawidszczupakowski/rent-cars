@@ -1,0 +1,19 @@
+:host::ng-deep {
+    .login-panel {
+        max-width: 1000px;
+        width: 60%;
+        margin: auto;
+    
+        &_card {
+            &_header {
+                width: 100%;
+                
+                &>.mat-card-header-text {
+                    margin: 0;
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}

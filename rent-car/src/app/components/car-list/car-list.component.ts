@@ -42,6 +42,6 @@ export class CarListComponent implements OnInit {
   }
 
   goToCarDetails(id: number): void {
-    this.router.navigate([`cars-list/car-detail/${id}`]);
+    this.router.navigate([`car-detail/${id}`]);
   }
 }

@@ -1,0 +1,29 @@
+<div class="login-panel">
+  <mat-card class="login-panel_card">
+    <mat-card-header class="login-panel_card_header">
+      <mat-card-title>Panel logownania</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form">
+        <mat-form-field class="col-12">
+          <mat-label>Login</mat-label>
+          <input type="text" matInput [formControl]="login">
+          <mat-error *ngIf="login.hasError('required')">
+            Pole wymagane
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="col-12">
+          <mat-label>Hasło</mat-label>
+          <input ng-reflect-type="password" matInput [formControl]="haslo">
+          <mat-error *ngIf="haslo.hasError('required')">
+            Pole wymagane
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button class="w-100" mat-raised-button color="primary">Zaloguj</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
