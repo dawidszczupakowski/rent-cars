@@ -1,3 +1,5 @@
+import { PayStatusEnum } from '../enums/pay-status.enum';
+import { RentStatusEnum } from '../enums/rent-status.enum';
 import { CarsModel } from './cars.model';
 import { TenantModel } from './tenant.model';
 
@@ -7,6 +9,8 @@ export interface RentModel {
     wypozyczenieOd: Date;
     wypozyczenieDo: Date;
     najemcaId?: number;
+    oplacone: PayStatusEnum;
+    statusWypozyczenia: RentStatusEnum;
 }
 
 export interface RentNewCarModel {

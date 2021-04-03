@@ -24,8 +24,17 @@ function rentController(app) {
         }
     });
     
-    app.put("/rent/:userGuid", async (req, res) => {
+    app.post("/rent/:userGuid", async (req, res) => {
         const result = await db.updateRent(req.body.id, req.params.userGuid, req.body);
+        if (result.status === "error") {
+            res.status(401).json({ result });
+        } else {
+            res.status(200).json({ result });
+        }
+    });
+
+    app.get("/getAllRentInfo/:userGuid", async (req, res) => {
+        const result = await db.getAllRentedInfo(req.params.userGuid);
         if (result.status === "error") {
             res.status(401).json({ result });
         } else {

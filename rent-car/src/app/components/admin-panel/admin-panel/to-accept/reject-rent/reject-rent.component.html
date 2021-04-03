@@ -1,0 +1,16 @@
+<div class="confirm-rent-dialog">
+  <mat-dialog-content>
+    <div class="w-100 text-center">
+      <h1>Czy na pewno chcesz anulować:</h1>
+      <h2><b>{{rentInfo.imie}} {{rentInfo.nazwisko}}</b></h2>
+      <h2>{{rentInfo.marka}} {{rentInfo.model}}</h2>
+    </div>
+
+    <hr class="action-hr">
+
+    <div class="actions">
+      <button mat-raised-button color="warn" (click)="close()">Wyjdż</button>
+      <button mat-raised-button color="primary" (click)="reject()">Anuluj</button>
+    </div>
+  </mat-dialog-content>
+</div>

@@ -1,17 +1,5 @@
 .car-rent-dialog {
     
-    .action-hr {
-        margin-left: -24px;
-        margin-right: -24px;
-    }
-    
-    .actions {
-        margin-top: 20px;
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-    }
-    
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
       -webkit-appearance: none;
@@ -24,5 +12,9 @@
     
     .form-container {
         display: flex;
+    }
+
+    .radio {
+      margin: 10px 20px;
     }
 }

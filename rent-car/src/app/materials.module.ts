@@ -8,7 +8,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
@@ -21,7 +25,11 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatNativeDateModule,
     MatCheckboxModule,
     MatIconModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTabsModule,
+    MatTableModule,
+    MatRadioModule,
+    MatTooltipModule
   ],
   exports: [
     MatButtonModule,
@@ -33,7 +41,11 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatNativeDateModule,
     MatCheckboxModule,
     MatIconModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTabsModule,
+    MatTableModule,
+    MatRadioModule,
+    MatTooltipModule
   ],
 })
 export class MaterialsModule { }

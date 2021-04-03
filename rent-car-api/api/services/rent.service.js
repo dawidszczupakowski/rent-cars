@@ -55,10 +55,25 @@ async function getAllRent(userGuid) {
     };
 }
 
-async function updateRent(id, userGuid, tenant) {
+async function updateRent(id, userGuid, rent) {
     const user = await knex("admin").select("id").where("guid", userGuid);
     if (user.length) {
-        return knex("wypozyczone").where("id", id).update(tenant);
+        return knex("wypozyczone").where("id", rent.id).update(rent);
+    }
+    return {
+        status: "error"
+    };
+}
+
+async function getAllRentedInfo(userGuid) {
+    const user = await knex("admin").select("id").where("guid", userGuid);
+
+    if (user.length) {
+        return await knex.select('*').from("wypozyczone").join('pojazdy', {
+            'pojazdy.id': 'wypozyczone.idPojazdu'
+        }).join('najemcy', {
+            'najemcy.id': 'wypozyczone.najemcaId'
+        });
     }
     return {
         status: "error"
@@ -69,5 +84,6 @@ module.exports = {
     addRent,
     getRent,
     getAllRent,
-    updateRent
+    updateRent,
+    getAllRentedInfo
 };

@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   constructor(private storageService: StorageService, private adminService: AdminService, private router: Router) { }
 
   ngOnInit(): void {
+    this.storageService.guid$.next(this.storageService.getLoggedUser());
     this.storageService.guid$.subscribe((guid) => {
       setTimeout(() => {
         this.adminButtonLabel = guid ? 'Panel administratora' : 'Logowanie jako administrator';

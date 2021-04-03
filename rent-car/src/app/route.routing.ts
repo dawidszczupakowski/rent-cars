@@ -10,7 +10,7 @@ const routes: Routes = [
     children: [
       {
         path: 'admin',
-        loadChildren: () => import('./components/amin-panel/amin-panel.module').then(m => m.AminPanelModule)
+        loadChildren: () => import('./components/admin-panel/admin-panel.module').then(m => m.AdminPanelModule)
       },
       {
         path: '',

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CarStatusEnum } from 'src/app/enums/car-status.enum';
+import { PayStatusEnum } from 'src/app/enums/pay-status.enum';
 import { CarsModel } from 'src/app/models/cars.model';
 import { RentNewCarModel } from 'src/app/models/rent.model';
 import { RentService } from 'src/app/services/rent.service';
@@ -19,6 +20,8 @@ export class CarRentDialogComponent implements OnInit {
   form: FormGroup;
   minDate: Date = new Date();
   maxDate: Date = new Date(this.minDate.getFullYear(), this.minDate.getMonth() + 1, this.minDate.getDay());
+  payStatusEnum = PayStatusEnum;
+
   constructor(
     public dialogRef: MatDialogRef<CarRentDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: CarsModel,
@@ -68,6 +71,10 @@ export class CarRentDialogComponent implements OnInit {
     return this.form.get('tenant.telefon');
   }
 
+  get oplacone() {
+    return this.form.get('rentDetails.oplacone');
+  }
+
   ngOnInit(): void {
     this.car = this.data;
     this.form = this.generateForm();
@@ -79,6 +86,7 @@ export class CarRentDialogComponent implements OnInit {
         idPojazdu: [this.car.id],
         wypozyczenieOd: [null, { validator: [Validators.required] }],
         wypozyczenieDo: [null, { validator: [Validators.required] }],
+        oplacone: [this.payStatusEnum.oplaconePrzyOdbiorze, Validators.required]
       }),
       tenant: this.formBuilder.group({
         imie: ['', Validators.required],
@@ -88,7 +96,7 @@ export class CarRentDialogComponent implements OnInit {
         numerDowoduOsobistego: ['', Validators.required],
         adres: ['', Validators.required],
         email: ['', Validators.email],
-        telefon: ['', Validators.required]
+        telefon: ['', Validators.required],
       }),
     });
   }
@@ -111,7 +119,7 @@ export class CarRentDialogComponent implements OnInit {
       mocSilnika: this.car.mocSilnika,
       cena: this.car.cena,
       dodatkoweInformacje: this.car.dodatkoweInformacje,
-      status: CarStatusEnum.doAkceptacji,
+      status: CarStatusEnum.zarezerwowany,
       waga: this.car.waga,
       pojemnoscSilnika: this.car.pojemnoscSilnika,
       rodzajSilnika: this.car.rodzajSilnika,

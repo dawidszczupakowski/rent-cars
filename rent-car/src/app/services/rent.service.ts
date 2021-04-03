@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { RentInfoModel } from '../models/rent-info.model';
 import { RentModel, RentNewCarModel } from '../models/rent.model';
+import { ResponseModel } from '../models/response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +26,12 @@ export class RentService {
   }
 
   updateRent(userGuid: string, rent: RentModel): Observable<number> {
-    return this.http.put<number>(`rent/${userGuid}`, rent);
+    return this.http.post<number>(`rent/${userGuid}`, rent);
+  }
+
+  getAllRentInfo(userGuid: string): Observable<RentInfoModel[]> {
+    return this.http.get<ResponseModel<RentInfoModel[]>>(`getAllRentInfo/${userGuid}`).pipe(
+      map(resp => resp.result)
+    );
   }
 }

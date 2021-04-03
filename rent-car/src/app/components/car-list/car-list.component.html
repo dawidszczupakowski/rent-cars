@@ -1,6 +1,6 @@
 <div class="cars-list">
   <div *ngFor="let car of carsList; let i = index" class="cars-list__content">
-    <mat-card *ngIf="car.status === statusEnum.wolny" class="cars-list__car-panel">
+    <mat-card *ngIf="car.status === statusEnum.wolny && i >= minIndex && i <= maxIndex" class="cars-list__car-panel">
       <mat-card-title>
         <div class="cars-list__car-panel__header">
           <div class="cars-list__car-panel__header__car">
@@ -19,6 +19,10 @@
         <button mat-raised-button color="primary" (click)="goToCarDetails(car.id)">Wybieram</button>
       </div>
     </mat-card>
+  </div>
+  <div class="cars-list__paginator">
+    <mat-paginator [length]="carsListLength" [pageSize]="6" [pageSizeOptions]="[6, 11]" (page)="paginatorChange($event)">
+    </mat-paginator>
   </div>
   <div *ngIf="!carsExist" class="w-100 text-center">
     <h1>Aktualnie brak aut na stanie. Wróć za jakiś czas.</h1>

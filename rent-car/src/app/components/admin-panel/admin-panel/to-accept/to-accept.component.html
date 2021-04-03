@@ -1,0 +1,59 @@
+<mat-form-field class="w-100 mt-2">
+  <mat-label>Wyszukaj</mat-label>
+  <input placeholder="Imię, nazwisko, pesel, pojazd" matInput (keyup)="applyFilter($event)" #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table class="w-100" mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="imieNazwisko">
+      <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> Imię i nazwisko </th>
+      <td style="width: 20%" mat-cell *matCellDef="let row"> {{row.imie}} {{row.nazwisko}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="pesel">
+      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> PESEL </th>
+      <td style="width: 15%" mat-cell *matCellDef="let row"> {{row.pesel}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="pojazd">
+      <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> Pojazd </th>
+      <td style="width: 20%" mat-cell *matCellDef="let row"> {{row.marka}} {{row.model}} {{row.pojemnosc}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="data">
+      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Data wypożyczenia </th>
+      <td style="width: 15%" mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.wypozyczenieOd | date: 'dd-MM-yyyy' }} -
+        {{row.wypozyczenieDo | date: 'dd-MM-yyyy'}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="oplata">
+      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Sposób płatności </th>
+      <td style="width: 15%" mat-cell *matCellDef="let row" style="color: blue; font-weight: 600;">
+        {{row.oplata === payStatusEnum.oplataPoOddaniu ? 'Opłata po oddaniu' : 'Opłata przy dbiorze'}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="akcje">
+      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Akcje </th>
+      <td style="width: 15%" mat-cell *matCellDef="let row" [style.color]="row.color">
+        <button class="mr-1" mat-raised-button color="primary" #tooltip="matTooltip" matTooltip="Akceptuj" matTooltipPosition="above"
+          tooltipClass="tooltip" (click)="accept(row)">
+          <mat-icon>assignment_turned_in</mat-icon>
+        </button>
+        <button mat-raised-button color="warn" #tooltip="matTooltip" matTooltip="Anuluj" matTooltipPosition="above"
+          tooltipClass="tooltip" (click)="reject(row)">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">Brak danych</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
