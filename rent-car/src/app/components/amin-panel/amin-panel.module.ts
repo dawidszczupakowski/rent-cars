@@ -5,6 +5,7 @@ import { MaterialsModule } from 'src/app/materials.module';
 import { SharedModule } from 'src/app/shared.module';
 import { AdminRouteRoutes } from './admin.routing';
 import { LoginComponent } from './login/login.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { LoginComponent } from './login/login.component';
     AdminRouteRoutes,
     MaterialsModule
   ],
-  declarations: [AminPanelComponent, LoginComponent]
+  declarations: [AminPanelComponent, LoginComponent, AdminPanelComponent]
 })
 export class AminPanelModule { }

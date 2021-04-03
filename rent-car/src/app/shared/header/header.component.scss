@@ -37,5 +37,11 @@
     .icon {
       padding-right: 10px;
     }
+
+    &__actions {
+      &__button {
+        margin: 0 10px;
+      }
+    }
   }
 }

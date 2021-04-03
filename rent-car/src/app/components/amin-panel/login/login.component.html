@@ -15,7 +15,7 @@
   
         <mat-form-field class="col-12">
           <mat-label>Hasło</mat-label>
-          <input ng-reflect-type="password" matInput [formControl]="haslo">
+          <input type="password" autocomplete="on" name="password" matInput [formControl]="haslo">
           <mat-error *ngIf="haslo.hasError('required')">
             Pole wymagane
           </mat-error>
@@ -23,7 +23,7 @@
       </form>
     </mat-card-content>
     <mat-card-actions>
-      <button class="w-100" mat-raised-button color="primary">Zaloguj</button>
+      <button class="w-100" type="submit" mat-raised-button color="primary" (click)="submit()">Zaloguj</button>
     </mat-card-actions>
   </mat-card>
 </div>

@@ -3,8 +3,9 @@
         <div class="app-header__info__logo">
             <img  routerLink="/" src="../../../assets/logo_transparent.png">
         </div>
-        <div>
-            <button mat-stroked-button routerLink="/admin/login"><span class="material-icons icon">face</span>Logowanie jako administrator</button>
+        <div class="app-header__info__actions">
+            <button mat-stroked-button class="app-header__info__actions__button" routerLink="/admin/login"><span class="material-icons icon">face</span>{{adminButtonLabel}}</button>
+            <button *ngIf="showLogout" mat-stroked-button class="app-header__info__actions__button" (click)="logout()"><mat-icon>power_settings_new</mat-icon> Wyloguj</button>
         </div>
     </div>
 </div>

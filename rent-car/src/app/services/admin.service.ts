@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AdminModel, LoginModel, LoginSuccessModel } from '../models/admin.model';
+import { ResponseModel } from '../models/response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,8 @@ export class AdminService {
   constructor(private http: HttpClient) { }
 
   login(credential: LoginModel): Observable<LoginSuccessModel> {
-    return this.http.post<LoginSuccessModel>('login', credential);
+    return this.http.post<ResponseModel<LoginSuccessModel>>('login', credential).pipe(
+      map((response) => response.result));
   }
 
   createAdmin(userGuid: string, admin: AdminModel): Observable<number> {

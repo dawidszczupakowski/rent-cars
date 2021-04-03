@@ -36,10 +36,9 @@ async function login(userCredential) {
 
 async function logout(guid) {
     const user = await knex("admin").select("*").where("guid", guid);
-    console.log(user);
     if (user.length) {
         user[0].guid = await uuidv4();
-        await knex("admin").update(user[0]);
+        await knex("admin").update(user[0]).where('id', user[0].id);
         return {
             status: "success"
         }

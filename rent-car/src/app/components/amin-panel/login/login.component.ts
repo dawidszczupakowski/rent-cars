@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoginSuccessModel } from 'src/app/models/admin.model';
+import { AdminService } from 'src/app/services/admin.service';
 import { HelperService } from 'src/app/services/helper.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +14,14 @@ import { HelperService } from 'src/app/services/helper.service';
 export class LoginComponent implements OnInit {
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private helperService: HelperService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private helperService: HelperService,
+    private adminService: AdminService,
+    private storageService: StorageService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   get login() {
     return this.form.get('login');
@@ -28,4 +39,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  submit() {
+    if (!this.form.valid) {
+      return;
+    }
+
+    this.adminService.login(this.form.value).subscribe((loginSucc: LoginSuccessModel) => {
+      this.storageService.setLoggedUser(loginSucc.guid);
+      document.location.href = '/admin/panel-admin';
+    });
+  }
 }
