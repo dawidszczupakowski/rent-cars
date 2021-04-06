@@ -9,8 +9,10 @@ import { ToAcceptComponent } from './admin-panel/to-accept/to-accept.component';
 import { RentedComponent } from './admin-panel/rented/rented.component';
 import { CarsComponent } from './admin-panel/cars/cars.component';
 import { ConfirmRentComponent } from './admin-panel/to-accept/confirm-rent/confirm-rent.component';
-import { RejectRentComponent } from './admin-panel/to-accept/reject-rent/reject-rent.component';
+import { RejectRentComponent } from './admin-panel/shared/reject-rent/reject-rent.component';
 import { ClientsComponent } from './admin-panel/clients/clients.component';
+import { DetailsDialogComponent } from './admin-panel/shared/details-dialog/details-dialog.component';
+import { EndRentDialogComponent } from './admin-panel/shared/end-rent-dialog/end-rent-dialog.component';
 
 @NgModule({
   imports: [
@@ -27,7 +29,9 @@ import { ClientsComponent } from './admin-panel/clients/clients.component';
     CarsComponent,
     ConfirmRentComponent,
     RejectRentComponent,
-    ClientsComponent
+    ClientsComponent,
+    DetailsDialogComponent,
+    EndRentDialogComponent
   ]
 })
 export class AdminPanelModule { }

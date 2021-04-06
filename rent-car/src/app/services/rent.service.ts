@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RentInfoModel } from '../models/rent-info.model';
 import { RentModel, RentNewCarModel } from '../models/rent.model';
@@ -10,6 +10,7 @@ import { ResponseModel } from '../models/response.model';
   providedIn: 'root'
 })
 export class RentService {
+  rentInfo: BehaviorSubject<RentInfoModel[]> = new BehaviorSubject(null);
 
   constructor(private http: HttpClient) { }
 

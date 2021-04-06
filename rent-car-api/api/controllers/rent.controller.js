@@ -25,7 +25,7 @@ function rentController(app) {
     });
     
     app.post("/rent/:userGuid", async (req, res) => {
-        const result = await db.updateRent(req.body.id, req.params.userGuid, req.body);
+        const result = await db.updateRent(req.params.userGuid, req.body);
         if (result.status === "error") {
             res.status(401).json({ result });
         } else {

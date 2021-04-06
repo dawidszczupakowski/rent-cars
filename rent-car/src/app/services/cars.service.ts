@@ -42,7 +42,7 @@ export class CarsService {
 
   updateCar(userGuid: string, car: CarsModel): Observable<number> {
     return this.http
-      .put<ResponseModel<number>>(`updateCar/${userGuid}`, car)
+      .post<ResponseModel<number>>(`updateCar/${userGuid}`, car)
       .pipe(map((response) => response.result));
   }
 }

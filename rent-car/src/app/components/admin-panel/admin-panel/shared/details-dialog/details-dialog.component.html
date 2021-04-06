@@ -1,0 +1,75 @@
+<div class="confirm-rent-dialog">
+  <mat-dialog-content>
+    <div class="details">
+      <h1>Szczegóły wypożyczenia</h1>
+      <div class="details__info">
+        <span class="details__info__title">Dane osobowe:</span>
+        <div class="details__info__text">
+          <span class="details__info__text__left">Imię i nazwisko:</span><span
+            class="details__info__text__right">{{rentInfo.imie}} {{rentInfo.nazwisko}}</span>
+        </div>
+        <div class="details__info__text">
+          <span class="details__info__text__left">Adres:</span><span
+            class="details__info__text__right">{{rentInfo.adres}}</span>
+        </div>
+        <div class="details__info__text">
+          <span class="details__info__text__left">PESEL:</span><span
+            class="details__info__text__right">{{rentInfo.pesel}}</span>
+        </div>
+        <div class="details__info__text">
+          <span *ngIf="rentInfo.nip" class="details__info__text__left">NIP:</span><span
+            class="details__info__text__right">{{rentInfo.nip}}</span>
+        </div>
+        <div class="details__info__text">
+          <span class="details__info__text__left">Numer dowodu osobistego:</span><span
+            class="details__info__text__right">{{rentInfo.numberDowoduOsobistego}}</span>
+        </div>
+        <div class="details__info__text">
+          <span class="details__info__text__left">Telefon, email:</span><span
+            class="details__info__text__right">{{rentInfo.telefon}}, {{rentInfo.email}}</span>
+        </div>
+
+        <span class="details__info__title">Samochów:</span>
+        <div class="details__info__text">
+          <span class="details__info__text__left">Marka, model:</span><span
+            class="details__info__text__right">{{rentInfo.marka}}, {{rentInfo.model}}</span>
+        </div>
+        <div class="details__info__text">
+          <span class="details__info__text__left">Silnik:</span><span
+            class="details__info__text__right">{{rentInfo.rodzajSilnika}}, {{rentInfo.pojemnoscSilnika}},
+            {{rentInfo.mocSilnika}}</span>
+        </div>
+        <div class="details__info__text">
+          <span class="details__info__text__left">Dodatkowe informacje:</span><span
+            class="details__info__text__right">{{rentInfo.dodatkoweInformacje}}</span>
+        </div>
+
+        <span class="details__info__title">Dane wypożyczenia: </span>
+        <div>
+          <div class="details__info__text">
+            <span class="details__info__text__left">Data wynajmu:</span><span
+              class="details__info__text__right">{{rentInfo.wypozyczenieOd | date: 'dd-MM-yyyy'}} -
+              {{rentInfo.wypozyczenieDo | date: 'dd-MM-yyyy'}}</span>
+          </div>
+          <div class="details__info__text">
+            <span class="details__info__text__left">Status wypożyczenia: </span><span
+              class="details__info__text__right"><span *ngIf="rentInfo.statusWypozyczenia === statusRent.anulowane"
+                style="color: red">Anulowane</span>
+              <span *ngIf="rentInfo.statusWypozyczenia === statusRent.wypozyczone"
+                style="color: blue">Wypożyczone</span>
+              <span *ngIf="rentInfo.statusWypozyczenia === statusRent.zakonczone"
+                style="color: green">Zakończone</span></span>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <hr class="action-hr">
+
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="close()">Wyjdż</button>
+    </div>
+  </mat-dialog-content>
+</div>

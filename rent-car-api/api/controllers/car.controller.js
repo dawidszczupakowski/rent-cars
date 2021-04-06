@@ -16,7 +16,7 @@ function carsController(app) {
         res.status(200).json({ result })
     });
     
-    app.put("/updateCar/:userGuid", async (req, res) => {
+    app.post("/updateCar/:userGuid", async (req, res) => {
         const result = await db.updateCar(req.body.id, req.params.userGuid, req.body);
         res.status(200).json({ result })
     });

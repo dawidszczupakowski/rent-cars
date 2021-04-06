@@ -16,7 +16,6 @@ export class CarListComponent implements OnInit {
   carsList: CarsModel[] = [];
   zdjecia: string[][] = [];
   statusEnum = CarStatusEnum;
-  carsExist = false;
   carsListLength = 0;
   minIndex = 0;
   maxIndex = 5;
@@ -35,14 +34,9 @@ export class CarListComponent implements OnInit {
 
   getCars(): void {
     this.carsService.getAllCars().subscribe((cars: CarsWithPhotoModel[]) => {
-      this.carsList = cars;
+      this.carsList = cars.filter(x => x.status === this.statusEnum.wolny);
       this.carsService.cars = cars;
-      for (const car of cars) {
-        this.carsExist = this.carsExist || car.status === this.statusEnum.wolny;
-        if (car.status === this.statusEnum.wolny) {
-          this.carsListLength++;
-        }
-      }
+      this.carsListLength = this.carsList.length;
     });
   }
 

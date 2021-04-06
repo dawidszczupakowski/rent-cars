@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Router } from '@angular/router';
 import { CarStatusEnum } from 'src/app/enums/car-status.enum';
 import { PayStatusEnum } from 'src/app/enums/pay-status.enum';
+import { RentStatusEnum } from 'src/app/enums/rent-status.enum';
 import { CarsModel } from 'src/app/models/cars.model';
 import { RentNewCarModel } from 'src/app/models/rent.model';
 import { RentService } from 'src/app/services/rent.service';
@@ -21,6 +22,7 @@ export class CarRentDialogComponent implements OnInit {
   minDate: Date = new Date();
   maxDate: Date = new Date(this.minDate.getFullYear(), this.minDate.getMonth() + 1, this.minDate.getDay());
   payStatusEnum = PayStatusEnum;
+  statusWypEnum = RentStatusEnum;
 
   constructor(
     public dialogRef: MatDialogRef<CarRentDialogComponent>,
@@ -124,6 +126,8 @@ export class CarRentDialogComponent implements OnInit {
       pojemnoscSilnika: this.car.pojemnoscSilnika,
       rodzajSilnika: this.car.rodzajSilnika,
     };
+
+    rent.rentDetails.statusWypozyczenia = this.statusWypEnum.doAkceptacji;
 
     const dialogRef = this.dialog.open(ConfirmRentCarComponent, {
       width: '40%',

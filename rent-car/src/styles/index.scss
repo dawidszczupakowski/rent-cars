@@ -12,9 +12,13 @@
 .mat-select-value,
 .mat-select-arrow {
   background-color: transparent;
-  color: white;
+  color: black;
 }
-    
+
+.mat-select-value {
+  color: black;
+}
+
 .actions {
   margin-top: 20px;
   display: flex;

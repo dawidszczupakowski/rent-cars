@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
@@ -29,7 +30,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatTabsModule,
     MatTableModule,
     MatRadioModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSelectModule
   ],
   exports: [
     MatButtonModule,
@@ -45,7 +47,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatTabsModule,
     MatTableModule,
     MatRadioModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSelectModule
   ],
 })
 export class MaterialsModule { }

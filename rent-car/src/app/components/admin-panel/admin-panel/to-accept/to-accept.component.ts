@@ -9,7 +9,7 @@ import { RentInfoModel } from 'src/app/models/rent-info.model';
 import { RentService } from 'src/app/services/rent.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { ConfirmRentComponent } from './confirm-rent/confirm-rent.component';
-import { RejectRentComponent } from './reject-rent/reject-rent.component';
+import { RejectRentComponent } from '../shared/reject-rent/reject-rent.component';
 
 @Component({
   selector: 'app-to-accept',
@@ -33,7 +33,8 @@ export class ToAcceptComponent implements OnInit {
 
   ngOnInit() {
     this.rentService.getAllRentInfo(this.storageService.loggedUser).subscribe((resp: RentInfoModel[]) => {
-      resp = resp.filter(x => x.statusWypozyczenia === this.statusRent.doAkceptacji);
+      this.rentService.rentInfo.next(resp);
+      resp = resp.filter(x => x.statusWypozyczenia === this.statusRent.doAkceptacji).sort((x, y) => y.wypozyczenieId - x.wypozyczenieId);
       this.dataSource = new MatTableDataSource(resp);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -50,11 +51,13 @@ export class ToAcceptComponent implements OnInit {
   }
 
   accept(row: RentInfoModel) {
-    this.dialog.open(ConfirmRentComponent, {
+    const dialogRef = this.dialog.open(ConfirmRentComponent, {
       width: '40%',
       maxHeight: '90%',
       data: row
     });
+
+    this.afterCloseDialogs(dialogRef);
   }
 
   reject(row: RentInfoModel) {
@@ -64,9 +67,14 @@ export class ToAcceptComponent implements OnInit {
       data: row
     });
 
-    dialogRef.afterClosed().subscribe(() => {
+    this.afterCloseDialogs(dialogRef);
+  }
+
+  private afterCloseDialogs(dialog) {
+    dialog.afterClosed().subscribe(() => {
       this.rentService.getAllRentInfo(this.storageService.loggedUser).subscribe((resp: RentInfoModel[]) => {
-        resp = resp.filter(x => x.statusWypozyczenia === this.statusRent.doAkceptacji);
+        this.rentService.rentInfo.next(resp);
+        resp = resp.filter(x => x.statusWypozyczenia === this.statusRent.doAkceptacji).sort((x, y) => y.wypozyczenieId - x.wypozyczenieId);
         this.dataSource = new MatTableDataSource(resp);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

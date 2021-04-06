@@ -29,8 +29,8 @@
 
     <ng-container matColumnDef="oplata">
       <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Sposób płatności </th>
-      <td style="width: 15%" mat-cell *matCellDef="let row" style="color: blue; font-weight: 600;">
-        {{row.oplata === payStatusEnum.oplataPoOddaniu ? 'Opłata po oddaniu' : 'Opłata przy dbiorze'}}</td>
+      <td style="width: 15%" mat-cell *matCellDef="let row" style="color: orangered">
+        {{row.oplata === payStatusEnum.oplataPoOddaniu ? 'Opłata po oddaniu' : 'Opłata przy odbiorze'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="akcje">

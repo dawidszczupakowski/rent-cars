@@ -1,3 +1,81 @@
-<p>
-  rented works!
-</p>
+<div class="filter-search-actions">
+  <mat-form-field class="search">
+    <mat-label>Wyszukaj</mat-label>
+    <input placeholder="Imię, nazwisko, pesel, pojazd" matInput (keyup)="applyFilter($event)" #input>
+  </mat-form-field>
+  
+  <div class="filter">
+    <span>Status wypożyczenia: </span>
+    <mat-form-field>
+      <mat-select [(ngModel)]="currStatusWyp" (selectionChange)="onChangeSelection($event)">
+        <mat-option value="Wszystkie">Wszystkie</mat-option>
+        <mat-option *ngFor="let status of statusWyp" [value]="status">
+          {{status.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="mat-elevation-z8">
+  <table class="w-100" mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="imieNazwisko">
+      <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> Imię i nazwisko </th>
+      <td style="width: 20%" mat-cell *matCellDef="let row"> {{row.imie}} {{row.nazwisko}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="pojazd">
+      <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> Pojazd </th>
+      <td style="width: 20%" mat-cell *matCellDef="let row"> {{row.marka}} {{row.model}} {{row.pojemnosc}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="data">
+      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Data wypożyczenia </th>
+      <td style="width: 15%" mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.wypozyczenieOd | date: 'dd-MM-yyyy' }} -
+        {{row.wypozyczenieDo | date: 'dd-MM-yyyy'}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="oplata">
+      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Sposób płatności </th>
+      <td style="width: 15%" mat-cell *matCellDef="let row" style="color: orangered">
+        {{row.oplata === payStatusEnum.oplataPoOddaniu ? 'Opłata po oddaniu' : 'Opłata przy odbiorze'}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Status wypożyczenia </th>
+      <td style="width: 15%" mat-cell *matCellDef="let row">
+        <span *ngIf="row.statusWypozyczenia === statusRent.anulowane" style="color: red">Anulowane</span>
+        <span *ngIf="row.statusWypozyczenia === statusRent.wypozyczone" style="color: blue">Wypożyczone</span>
+        <span *ngIf="row.statusWypozyczenia === statusRent.zakonczone" style="color: green">Zakończone</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="akcje">
+      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Akcje </th>
+      <td style="width: 15%" mat-cell *matCellDef="let row" [style.color]="row.color">
+        <button style="margin: 2px 5px" mat-raised-button color="primary" #tooltip="matTooltip" matTooltip="Szczegóły" matTooltipPosition="above"
+          tooltipClass="tooltip" (click)="details(row)">
+          <mat-icon>assignment</mat-icon>
+        </button>
+        <button *ngIf="row.statusWypozyczenia === statusRent.wypozyczone" style="margin: 5px" mat-raised-button style="background-color: green;" #tooltip="matTooltip" matTooltip="Zakończ" matTooltipPosition="above"
+          tooltipClass="tooltip" (click)="endRent(row)">
+          <mat-icon>check_circle</mat-icon>
+        </button>
+        <button *ngIf="row.statusWypozyczenia === statusRent.wypozyczone" style="margin: 5px" mat-raised-button color="warn" #tooltip="matTooltip" matTooltip="Anuluj" matTooltipPosition="above"
+          tooltipClass="tooltip" (click)="reject(row)">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">Brak danych</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

@@ -1,11 +1,17 @@
 <div class="confirm-rent-dialog">
   <mat-dialog-content>
+    <div class="w-100 text-center">
+      <h1>Czy na pewno chcesz potwierdzić:</h1>
+      Imię i nazwisko: <h2><b>{{rentInfo.imie}} {{rentInfo.nazwisko}}</b></h2>
+      Samochód: <h2>{{rentInfo.marka}} {{rentInfo.model}}</h2>
+      Data wypożyczenia: <h2>{{rentInfo.wypozyczenieOd | date: 'dd-MM-yyyy'}} - {{rentInfo.wypozyczenieDo | date: 'dd-MM-yyyy'}}</h2>
+    </div>
 
     <hr class="action-hr">
 
     <div class="actions">
-      <button mat-raised-button color="warn">Anuluj</button>
-      <button mat-raised-button color="primary">Potwierdzam</button>
+      <button mat-raised-button color="warn" (click)="close()">Wyjdź</button>
+      <button mat-raised-button color="primary" (click)="confirm()">Potwierdzam wypożyczenie</button>
     </div>
   </mat-dialog-content>
 </div>
