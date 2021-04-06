@@ -3,9 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { CarsModel } from 'src/app/models/cars.model';
+import { CarStatusEnum } from 'src/app/enums/car-status.enum';
+import { CarsWithPhotoModel } from 'src/app/models/cars.model';
 import { CarsService } from 'src/app/services/cars.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { CarDetailsDialogComponent } from './car-details-dialog/car-details-dialog.component';
 
 @Component({
   selector: 'app-cars',
@@ -13,10 +15,27 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./cars.component.scss']
 })
 export class CarsComponent implements OnInit {
-  displayedColumns: string[] = ['imieNazwisko', 'pojazd', 'data', 'oplata', 'status', 'akcje'];
-  dataSource: MatTableDataSource<CarsModel>;
-  currStatusWyp = "Wszystkie";
-  dataList: CarsModel[] = [];
+  displayedColumns: string[] = ['model', 'marka', 'cena', 'status', 'akcje'];
+  dataSource: MatTableDataSource<CarsWithPhotoModel>;
+  carStatusEnum = CarStatusEnum;
+  currStatusPojazd = "Wszystkie";
+  statusWyp: { status: CarStatusEnum, name: string }[] = [{
+    status: this.carStatusEnum.wolny,
+    name: 'Wolne'
+  },
+  {
+    status: this.carStatusEnum.wypozyczony,
+    name: 'Wypożyczone'
+  },
+  {
+    status: this.carStatusEnum.zarezerwowany,
+    name: 'Zarezerwowane'
+  },
+  {
+    status: this.carStatusEnum.nieaktywny,
+    name: 'Nieaktywne'
+  }];
+  dataList: CarsWithPhotoModel[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -28,6 +47,12 @@ export class CarsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.carsService.getAllCars().subscribe((cars: CarsWithPhotoModel[]) => {
+      this.dataList = cars.sort((x, y) => y.id - x.id);
+      this.dataSource = new MatTableDataSource(this.dataList);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
   applyFilter(event: Event) {
@@ -39,9 +64,17 @@ export class CarsComponent implements OnInit {
     }
   }
 
-  details(row: CarsModel) {
-    // const dialogRef = this.dialog.open(ConfirmRentComponent, {
-    //   width: '40%',
+  details(row: CarsWithPhotoModel) {
+    this.dialog.open(CarDetailsDialogComponent, {
+      width: '60%',
+      maxHeight: '90%',
+      data: row
+    });
+  }
+
+  deasctiveCar(row: CarsWithPhotoModel) {
+    // const dialogRef = this.dialog.open(RejectRentComponent, {
+    //   width: '30%',
     //   maxHeight: '90%',
     //   data: row
     // });
@@ -49,7 +82,17 @@ export class CarsComponent implements OnInit {
     // this.afterCloseDialogs(dialogRef);
   }
 
-  reject(row: CarsModel) {
+  asctiveCar(row: CarsWithPhotoModel) {
+    // const dialogRef = this.dialog.open(RejectRentComponent, {
+    //   width: '30%',
+    //   maxHeight: '90%',
+    //   data: row
+    // });
+
+    // this.afterCloseDialogs(dialogRef);
+  }
+
+  edit(row: CarsWithPhotoModel) {
     // const dialogRef = this.dialog.open(RejectRentComponent, {
     //   width: '30%',
     //   maxHeight: '90%',
@@ -70,5 +113,16 @@ export class CarsComponent implements OnInit {
     //     this.currStatusWyp = "Wszystkie";
     //   });
     // })
+  }
+
+  onChangeSelection(selected) {
+    if (selected.value?.status) {
+      this.dataSource = new MatTableDataSource(this.dataList.filter(x => x.status === selected.value.status).sort((x, y) => y.id - x.id));
+    } else {
+      this.dataSource = new MatTableDataSource(this.dataList.sort((x, y) => y.id - x.id));
+    }
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.currStatusPojazd = selected.value;
   }
 }

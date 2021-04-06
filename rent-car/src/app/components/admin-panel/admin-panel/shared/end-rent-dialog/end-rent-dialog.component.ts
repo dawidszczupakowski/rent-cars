@@ -8,7 +8,6 @@ import { RentModel } from 'src/app/models/rent.model';
 import { CarsService } from 'src/app/services/cars.service';
 import { RentService } from 'src/app/services/rent.service';
 import { StorageService } from 'src/app/services/storage.service';
-import { RejectRentComponent } from '../reject-rent/reject-rent.component';
 
 @Component({
   selector: 'app-end-rent-dialog',
@@ -21,7 +20,7 @@ export class EndRentDialogComponent implements OnInit {
   carStatusEnum = CarStatusEnum;
 
   constructor(
-    public dialogRef: MatDialogRef<RejectRentComponent>,
+    public dialogRef: MatDialogRef<EndRentDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: RentInfoModel,
     private rentService: RentService,
     private storageService: StorageService,

@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RentStatusEnum } from 'src/app/enums/rent-status.enum';
 import { RentInfoModel } from 'src/app/models/rent-info.model';
-import { RejectRentComponent } from '../reject-rent/reject-rent.component';
 
 @Component({
   selector: 'app-details-dialog',
@@ -12,7 +11,7 @@ import { RejectRentComponent } from '../reject-rent/reject-rent.component';
 export class DetailsDialogComponent implements OnInit {
   rentInfo: RentInfoModel;
   statusRent = RentStatusEnum;
-  constructor(public dialogRef: MatDialogRef<RejectRentComponent>,
+  constructor(public dialogRef: MatDialogRef<DetailsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: RentInfoModel,) { }
 
   ngOnInit() {

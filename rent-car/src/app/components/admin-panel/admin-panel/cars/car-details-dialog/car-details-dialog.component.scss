@@ -1,0 +1,72 @@
+.car-details-dialog {
+  .carousel-indicators {
+    display: none;
+  }
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 100%;
+
+  &__content {
+    padding: 30px 0;
+  }
+
+  &__car-panel {
+    &__header {
+      display: flex;
+      justify-content: space-between;
+
+      &__price {
+        color: red;
+      }
+    }
+
+    &__image {
+      width: 50%;
+      margin: auto;
+    }
+
+    &__info {
+      width: 60%;
+      margin: auto;
+      text-align: left;
+      padding: 30px 0;
+    }
+
+    &__actions {
+      width: 100%;
+      text-align: center;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+}
+
+:host::ng-deep .carousel-inner {
+  display: flex;
+  align-items: center;
+  background-color: black;
+}
+
+:host::ng-deep {
+  .mat-dialog-content {
+    width: 100%;
+    overflow: unset;
+  }
+
+  .mat-dialog-container {
+    padding: 24px 0;
+  }
+}
+
+
+::ng-deep .carousel.carousel-control-prev-icon {
+  background-image: url('https://apufpel.com.br/assets/img/seta_prim.png') !important;
+}
+::ng-deep .carousel.carousel-control-next-icon{
+ background-image: url('https://apufpel.com.br/assets/img/seta_ult.png') !important;
+}

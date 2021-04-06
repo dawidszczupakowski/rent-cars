@@ -1,0 +1,37 @@
+<div class="car-details-dialog__car-panel__header">
+  <h1>Szczegóły pojazdu</h1>
+</div>
+<div class="car-details-dialog">
+  <mat-dialog-content>
+    <div class="car-details-dialog__car-panel__content">
+      <div class="car-details-dialog__car-panel__image">
+        <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+          <mdb-carousel-item *ngFor="let zdj of car.blob; let i = index">
+            <img class="w-100" [src]="zdj">
+          </mdb-carousel-item>
+        </mdb-carousel>
+      </div>
+      <div class="car-details-dialog__car-panel__info">
+        <h1>Dane:</h1>
+        <h2><b>Marka: </b>{{car.marka}}</h2>
+        <h2><b>Model: </b>{{car.model}}</h2>
+        <h2><b>Rodzaj silnika: </b>{{car.rodzajSilnika}}</h2>
+        <h2><b>Moc silnika: </b>{{car.mocSilnika}}</h2>
+        <h2><b>Pojemność: </b>{{car.pojemnoscSilnika}}</h2>
+        <h2><b>Masa pojazdu: </b>{{car.waga}}</h2>
+        <h2><b>Dodatkowe informacje: </b>{{car.dodatkoweInformacje}}</h2>
+        <h2><b>Cena: </b>{{car.cena}}</h2>
+        <h2><b>Status: </b><span *ngIf="car.status === carStatusEnum.wolny" style="color: green">Wolny</span>
+          <span *ngIf="car.status === carStatusEnum.zarezerwowany" style="color: blue">Zarezerwowany</span>
+          <span *ngIf="car.status === carStatusEnum.wypozyczony" style="color: orangered">Wypożyczony</span>
+          <span *ngIf="car.status === carStatusEnum.nieaktywny" style="color: red">Nieaktywny</span></h2>
+      </div>
+    </div>
+
+    <hr class="action-hr">
+
+    <div class="actions">
+      <button mat-raised-button class="w-100 mb-1" color="primary" (click)="close()">Wyjdż</button>
+    </div>
+  </mat-dialog-content>
+</div>

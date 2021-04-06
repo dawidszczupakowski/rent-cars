@@ -13,6 +13,7 @@ import { RejectRentComponent } from './admin-panel/shared/reject-rent/reject-ren
 import { ClientsComponent } from './admin-panel/clients/clients.component';
 import { DetailsDialogComponent } from './admin-panel/shared/details-dialog/details-dialog.component';
 import { EndRentDialogComponent } from './admin-panel/shared/end-rent-dialog/end-rent-dialog.component';
+import { CarDetailsDialogComponent } from './admin-panel/cars/car-details-dialog/car-details-dialog.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { EndRentDialogComponent } from './admin-panel/shared/end-rent-dialog/end
     RejectRentComponent,
     ClientsComponent,
     DetailsDialogComponent,
-    EndRentDialogComponent
+    EndRentDialogComponent,
+    CarDetailsDialogComponent
   ]
 })
 export class AdminPanelModule { }

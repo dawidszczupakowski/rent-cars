@@ -35,7 +35,6 @@ import { MaterialsModule } from './materials.module';
     RouteRoutes,
     SharedModule,
     BrowserAnimationsModule,
-    MDBBootstrapModule.forRoot(),
     MaterialsModule
   ],
   providers: [

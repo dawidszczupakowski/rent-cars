@@ -4,53 +4,67 @@
     <input placeholder="Imię, nazwisko, pesel, pojazd" matInput (keyup)="applyFilter($event)" #input>
   </mat-form-field>
 
+  <div class="filter">
+    <span>Status pojazdu: </span>
+    <mat-form-field>
+      <mat-select [(ngModel)]="currStatusPojazd" (selectionChange)="onChangeSelection($event)">
+        <mat-option value="Wszystkie">Wszystkie</mat-option>
+        <mat-option *ngFor="let status of statusWyp" [value]="status">
+          {{status.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
 <div class="mat-elevation-z8">
   <table class="w-100" mat-table [dataSource]="dataSource" matSort>
 
-    <ng-container matColumnDef="imieNazwisko">
-      <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> Imię i nazwisko </th>
-      <td style="width: 20%" mat-cell *matCellDef="let row"> {{row.imie}} {{row.nazwisko}} </td>
+    <ng-container matColumnDef="model">
+      <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> Model </th>
+      <td style="width: 20%" mat-cell *matCellDef="let row"> {{row.model}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="pojazd">
-      <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> Pojazd </th>
-      <td style="width: 20%" mat-cell *matCellDef="let row"> {{row.marka}} {{row.model}} {{row.pojemnosc}}</td>
+    <ng-container matColumnDef="marka">
+      <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> Marka </th>
+      <td style="width: 20%" mat-cell *matCellDef="let row">{{row.marka}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="data">
-      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Data wypożyczenia </th>
-      <td style="width: 15%" mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.wypozyczenieOd | date: 'dd-MM-yyyy' }} -
-        {{row.wypozyczenieDo | date: 'dd-MM-yyyy'}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="oplata">
-      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Sposób płatności </th>
-      <td style="width: 15%" mat-cell *matCellDef="let row" style="color: orangered">
-        {{row.oplata === payStatusEnum.oplataPoOddaniu ? 'Opłata po oddaniu' : 'Opłata przy odbiorze'}}</td>
+    <ng-container matColumnDef="cena">
+      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Cena </th>
+      <td style="width: 15%" mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.cena}} </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
       <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Status wypożyczenia </th>
       <td style="width: 15%" mat-cell *matCellDef="let row">
-        <span *ngIf="row.statusWypozyczenia === statusRent.anulowane" style="color: red">Anulowane</span>
-        <span *ngIf="row.statusWypozyczenia === statusRent.wypozyczone" style="color: blue">Wypożyczone</span>
-        <span *ngIf="row.statusWypozyczenia === statusRent.zakonczone" style="color: green">Zakończone</span>
+        <span *ngIf="row.status === carStatusEnum.wolny" style="color: green">Wolny</span>
+        <span *ngIf="row.status === carStatusEnum.zarezerwowany" style="color: blue">Zarezerwowany</span>
+        <span *ngIf="row.status === carStatusEnum.wypozyczony" style="color: orangered">Wypożyczony</span>
+        <span *ngIf="row.status === carStatusEnum.nieaktywny" style="color: red">Nieaktywny</span>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="akcje">
       <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Akcje </th>
       <td style="width: 15%" mat-cell *matCellDef="let row" [style.color]="row.color">
-        <button style="margin: 2px 5px" mat-raised-button color="primary" #tooltip="matTooltip" matTooltip="Szczegóły" matTooltipPosition="above"
-          tooltipClass="tooltip" (click)="details(row)">
+        <button style="margin: 2px 5px" mat-raised-button color="primary" #tooltip="matTooltip" matTooltip="Szczegóły"
+          matTooltipPosition="above" tooltipClass="tooltip" (click)="details(row)">
           <mat-icon>assignment</mat-icon>
         </button>
-        <button *ngIf="row.statusWypozyczenia === statusRent.wypozyczone" style="margin: 5px" mat-raised-button style="background-color: green;" #tooltip="matTooltip" matTooltip="Zakończ" matTooltipPosition="above"
-          tooltipClass="tooltip" (click)="endRent(row)">
-          <mat-icon>check_circle</mat-icon>
+        <button *ngIf="row.status === carStatusEnum.wolny || row.status === carStatusEnum.nieaktywny"
+          style="margin: 5px" mat-raised-button color="primary" #tooltip="matTooltip" matTooltip="Edytuj"
+          matTooltipPosition="above" tooltipClass="tooltip" (click)="edit(row)">
+          <mat-icon>edit</mat-icon>
         </button>
-        <button *ngIf="row.statusWypozyczenia === statusRent.wypozyczone" style="margin: 5px" mat-raised-button color="warn" #tooltip="matTooltip" matTooltip="Anuluj" matTooltipPosition="above"
-          tooltipClass="tooltip" (click)="reject(row)">
+        <button *ngIf="row.status === carStatusEnum.wolny" style="margin: 5px" mat-raised-button color="warn"
+          #tooltip="matTooltip" matTooltip="Deazaktywój" matTooltipPosition="above" tooltipClass="tooltip"
+          (click)="desactiveCar(row)">
+          <mat-icon>cancel</mat-icon>
+        </button>
+        <button *ngIf="row.status === carStatusEnum.nieaktywny" style="margin: 5px; background-color: green;"
+          mat-raised-button #tooltip="matTooltip" matTooltip="Przywróć" matTooltipPosition="above"
+          tooltipClass="tooltip" (click)="activeCar(row)">
           <mat-icon>cancel</mat-icon>
         </button>
       </td>
