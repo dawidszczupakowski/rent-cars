@@ -4,9 +4,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CarStatusEnum } from 'src/app/enums/car-status.enum';
-import { CarsWithPhotoModel } from 'src/app/models/cars.model';
+import { CarsModel, CarsWithPhotoModel } from 'src/app/models/cars.model';
 import { CarsService } from 'src/app/services/cars.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { AddCarDialogComponent } from './add-car-dialog/add-car-dialog.component';
 import { CarDetailsDialogComponent } from './car-details-dialog/car-details-dialog.component';
 
 @Component({
@@ -82,7 +83,7 @@ export class CarsComponent implements OnInit {
     // this.afterCloseDialogs(dialogRef);
   }
 
-  asctiveCar(row: CarsWithPhotoModel) {
+  activeCar(row: CarsWithPhotoModel) {
     // const dialogRef = this.dialog.open(RejectRentComponent, {
     //   width: '30%',
     //   maxHeight: '90%',
@@ -113,6 +114,21 @@ export class CarsComponent implements OnInit {
     //     this.currStatusWyp = "Wszystkie";
     //   });
     // })
+  }
+
+  addCar() {
+    const dialogRef = this.dialog.open(AddCarDialogComponent, {
+      width: '30%',
+      maxHeight: '90%'
+    });
+
+    dialogRef.afterClosed().subscribe((car: CarsModel) => {
+      this.carsService.createCar(this.storageService.loggedUser, car).subscribe(resp => {
+        this.carsService.getAllCars().subscribe((cars: CarsWithPhotoModel[]) => {
+          dialogRef.close(cars);
+        })
+      })
+    })
   }
 
   onChangeSelection(selected) {

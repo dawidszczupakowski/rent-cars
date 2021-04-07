@@ -1,16 +1,28 @@
 .filter-search-actions {
-    display: flex;
-    justify-content: space-between;
-    .search {
-        min-width: 400px;
-        width: 60%;
-    }
+  display: flex;
+  justify-content: space-between;
 
-    .filter {
-        width: 30%;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        font-size: 17px;
+  .search {
+    min-width: 400px;
+    width: 60%;
+  }
+
+  .filter {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 17px;
+  }
+}
+
+
+:host::ng-deep .add {
+    &-button {
+        margin-bottom: 10px;
+
+        .mat-icon {
+          padding-bottom: 28px;
+        }
     }
 }
