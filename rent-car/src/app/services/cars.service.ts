@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CarsModel, CarsWithPhotoModel } from '../models/cars.model';
+import { CarsModel, CarsWithPhotoModel, CarsWithPhotoModelResponse } from '../models/cars.model';
 import { ResponseModel } from '../models/response.model';
 
 @Injectable({
@@ -13,23 +13,23 @@ export class CarsService {
   constructor(private http: HttpClient) { }
 
   getAllCars(): Observable<CarsWithPhotoModel[]> {
-    return this.http.get<ResponseModel<CarsWithPhotoModel[]>>('cars').pipe(
+    return this.http.get<ResponseModel<any>>('cars').pipe(
       map((response) => response.result),
       map((cars) => {
         cars.forEach((car) => {
-          car.blob = JSON.parse('[' + car.blob + ']');
+          car.blob = JSON.parse(car.blob);
         });
-        return cars;
+        return cars as CarsWithPhotoModel[];
       })
     );
   }
 
   getCar(id: number): Observable<CarsWithPhotoModel> {
-    return this.http.get<ResponseModel<CarsWithPhotoModel>>(`cars/${id}`).pipe(
+    return this.http.get<ResponseModel<any>>(`cars/${id}`).pipe(
       map((response) => response.result),
       map((car) => {
-        car.blob = JSON.parse('[' + car.blob + ']');
-        return car;
+        car.blob = JSON.parse(car.blob);
+        return car as CarsWithPhotoModel;
       })
     );
   }

@@ -59,7 +59,7 @@ export class EndRentDialogComponent implements OnInit {
       this.carsService.updateCar(this.storageService.loggedUser, car).subscribe((x) => {
         this.dialogRef.close();
       })
-    })
+    }, () => this.dialogRef.close())
   }
 
   close() {

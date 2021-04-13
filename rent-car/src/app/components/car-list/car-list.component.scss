@@ -7,9 +7,21 @@
   
     &__content {
     }
+    mat-card-content {
+      min-height: 426px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-color: black;
+    }
     
     &__car-panel {
+      display: flex;
+      flex-direction: column;
+      // justify-content: space-between;
+      height: 570px;
       max-width: 600px;
+      width: 600px;
       width: 100%;
       margin: 30px 10px;
       

@@ -1,17 +1,19 @@
 <div class="cars-list">
   <div *ngFor="let car of carsList; let i = index" class="cars-list__content">
     <mat-card *ngIf="i >= minIndex && i <= maxIndex" class="cars-list__car-panel">
-      <mat-card-title>
-        <div class="cars-list__car-panel__header">
-          <div class="cars-list__car-panel__header__car">
-            {{ car.marka }} {{ car.model }}
+      <div>
+        <mat-card-title>
+          <div class="cars-list__car-panel__header">
+            <div class="cars-list__car-panel__header__car">
+              {{ car.marka }} {{ car.model }}
+            </div>
+            <div class="cars-list__car-panel__header__price">
+              {{car.cena}}
+            </div>
           </div>
-          <div class="cars-list__car-panel__header__price">
-            {{car.cena}}
-          </div>
-        </div>
-      </mat-card-title>
-      <mat-card-subtitle>{{car.rodzajSilnika}} {{car.pojemnoscSilnika}} {{car.mocSilnika}}</mat-card-subtitle>
+        </mat-card-title>
+        <mat-card-subtitle>{{car.rodzajSilnika}} {{car.pojemnoscSilnika}} {{car.mocSilnika}}</mat-card-subtitle>
+      </div>
       <mat-card-content>
         <img class="cars-list__car-panel__image" [src]="car.blob[0]" onerror="this.src = '../../../assets/no-foto.png'">
       </mat-card-content>

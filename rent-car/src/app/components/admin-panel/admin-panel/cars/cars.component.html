@@ -17,20 +17,22 @@
   </div>
 </div>
 <div class="add">
-  <button class="add-button" mat-raised-button color="primary" (click)="addCar()"><mat-icon>add</mat-icon> Dodaj pojazd</button>
+  <button class="add-button" mat-raised-button color="primary" (click)="addCar()">
+    <mat-icon>add</mat-icon> Dodaj pojazd
+  </button>
 </div>
 
 <div class="mat-elevation-z8">
   <table class="w-100" mat-table [dataSource]="dataSource" matSort>
 
-    <ng-container matColumnDef="model">
-      <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> Model </th>
-      <td style="width: 20%" mat-cell *matCellDef="let row"> {{row.model}} </td>
-    </ng-container>
-
     <ng-container matColumnDef="marka">
       <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> Marka </th>
       <td style="width: 20%" mat-cell *matCellDef="let row">{{row.marka}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="model">
+      <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> Model </th>
+      <td style="width: 20%" mat-cell *matCellDef="let row"> {{row.model}} </td>
     </ng-container>
 
     <ng-container matColumnDef="cena">

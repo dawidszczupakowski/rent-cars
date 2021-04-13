@@ -15,5 +15,9 @@ export interface CarsModel {
 }
 
 export interface CarsWithPhotoModel extends CarsModel {
+    blob: string[];
+}
+
+export interface CarsWithPhotoModelResponse extends CarsModel {
     blob: string;
 }

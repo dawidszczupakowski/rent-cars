@@ -14,6 +14,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatTableModule,
     MatRadioModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressBarModule
   ],
   exports: [
     MatButtonModule,
@@ -48,7 +50,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatTableModule,
     MatRadioModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressBarModule
   ],
 })
 export class MaterialsModule { }

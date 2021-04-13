@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoaderService } from './services/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'rent-car';
-  constructor() {
+  loader = false;
+  constructor(private loaderService: LoaderService) {
+    this.loaderService.loader.subscribe(status => {
+      setTimeout(() => {
+        this.loader = status;
+      }, 0);
+    });
   }
 }

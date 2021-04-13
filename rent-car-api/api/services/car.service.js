@@ -29,7 +29,7 @@ async function getAllCar() {
 async function updateCar(id, userGuid, car) {
     const user = await knex("admin").select("id").where("guid", userGuid);
     if (user.length) {
-        return knex("pojazdy").where("id", car.id).update(car);
+        return knex("pojazdy").update(car).where("id", car.id);
     }
     return {
         status: "error"

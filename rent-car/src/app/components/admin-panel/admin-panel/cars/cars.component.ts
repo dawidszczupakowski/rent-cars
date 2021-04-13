@@ -7,7 +7,8 @@ import { CarStatusEnum } from 'src/app/enums/car-status.enum';
 import { CarsModel, CarsWithPhotoModel } from 'src/app/models/cars.model';
 import { CarsService } from 'src/app/services/cars.service';
 import { StorageService } from 'src/app/services/storage.service';
-import { AddCarDialogComponent } from './add-car-dialog/add-car-dialog.component';
+import { ActiveDesactiveCarDialogComponent } from './active-desactive-car-dialog/active-desactive-car-dialog.component';
+import { AddEditCarDialogComponent } from './add-edit-car-dialog/add-edit-car-dialog.component';
 import { CarDetailsDialogComponent } from './car-details-dialog/car-details-dialog.component';
 
 @Component({
@@ -16,7 +17,7 @@ import { CarDetailsDialogComponent } from './car-details-dialog/car-details-dial
   styleUrls: ['./cars.component.scss']
 })
 export class CarsComponent implements OnInit {
-  displayedColumns: string[] = ['model', 'marka', 'cena', 'status', 'akcje'];
+  displayedColumns: string[] = ['marka', 'model', 'cena', 'status', 'akcje'];
   dataSource: MatTableDataSource<CarsWithPhotoModel>;
   carStatusEnum = CarStatusEnum;
   currStatusPojazd = "Wszystkie";
@@ -73,62 +74,55 @@ export class CarsComponent implements OnInit {
     });
   }
 
-  deasctiveCar(row: CarsWithPhotoModel) {
-    // const dialogRef = this.dialog.open(RejectRentComponent, {
-    //   width: '30%',
-    //   maxHeight: '90%',
-    //   data: row
-    // });
+  desactiveCar(row: CarsWithPhotoModel) {
+    const dialogRef = this.dialog.open(ActiveDesactiveCarDialogComponent, {
+      width: '30%',
+      maxHeight: '90%',
+      data: { car: row, status: this.carStatusEnum.nieaktywny }
+    });
 
-    // this.afterCloseDialogs(dialogRef);
+    this.afterCloseDialogs(dialogRef);
   }
 
   activeCar(row: CarsWithPhotoModel) {
-    // const dialogRef = this.dialog.open(RejectRentComponent, {
-    //   width: '30%',
-    //   maxHeight: '90%',
-    //   data: row
-    // });
+    const dialogRef = this.dialog.open(ActiveDesactiveCarDialogComponent, {
+      width: '30%',
+      maxHeight: '90%',
+      data: { car: row, status: this.carStatusEnum.wolny }
+    });
 
-    // this.afterCloseDialogs(dialogRef);
+    this.afterCloseDialogs(dialogRef);
   }
 
   edit(row: CarsWithPhotoModel) {
-    // const dialogRef = this.dialog.open(RejectRentComponent, {
-    //   width: '30%',
-    //   maxHeight: '90%',
-    //   data: row
-    // });
+    const dialogRef = this.dialog.open(AddEditCarDialogComponent, {
+      width: '30%',
+      maxHeight: '90%',
+      data: row
+    });
 
-    // this.afterCloseDialogs(dialogRef);
+    this.afterCloseDialogs(dialogRef);
   }
 
   private afterCloseDialogs(dialog) {
-    // dialog.afterClosed().subscribe(() => {
-    //   this.rentService.getAllRentInfo(this.storageService.loggedUser).subscribe((resp: RentInfoModel[]) => {
-    //     this.dataList = resp;
-    //     resp = resp.filter(x => x.statusWypozyczenia !== this.statusRent.doAkceptacji).sort((x, y) => y.wypozyczenieId - x.wypozyczenieId);
-    //     this.dataSource = new MatTableDataSource(resp);
-    //     this.dataSource.paginator = this.paginator;
-    //     this.dataSource.sort = this.sort;
-    //     this.currStatusWyp = "Wszystkie";
-    //   });
-    // })
+    dialog.afterClosed().subscribe(() => {
+      this.carsService.getAllCars().subscribe((cars: CarsWithPhotoModel[]) => {
+        this.dataList = cars;
+        this.dataSource = new MatTableDataSource(this.dataList.sort((x, y) => y.id - x.id));
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
+    });
   }
 
   addCar() {
-    const dialogRef = this.dialog.open(AddCarDialogComponent, {
+    const dialogRef = this.dialog.open(AddEditCarDialogComponent, {
       width: '30%',
       maxHeight: '90%'
     });
 
     dialogRef.afterClosed().subscribe((car: CarsModel) => {
-      this.carsService.createCar(this.storageService.loggedUser, car).subscribe(resp => {
-        this.carsService.getAllCars().subscribe((cars: CarsWithPhotoModel[]) => {
-          dialogRef.close(cars);
-        })
-      })
-    })
+    });
   }
 
   onChangeSelection(selected) {

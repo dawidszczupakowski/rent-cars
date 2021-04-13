@@ -1,0 +1,105 @@
+<div class="car-details-dialog__car-panel__header">
+  <h1>{{isEdit ? 'Edycja pojazdu' : 'Dodaj pojazd'}}</h1>
+</div>
+<div class="car-details-dialog">
+  <mat-dialog-content>
+    <mat-form-field class="col-12">
+      <mat-label>Marka</mat-label>
+      <input type="text" matInput [formControl]="marka">
+      <mat-error *ngIf="marka.hasError('required')">
+        Pole wymagane
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-12">
+      <mat-label>Model</mat-label>
+      <input type="text" matInput [formControl]="model">
+      <mat-error *ngIf="model.hasError('required')">
+        Pole wymagane
+      </mat-error>
+    </mat-form-field>
+
+
+    <div class="col-12">
+      <div class="form-group add-file">
+        <div class="add-file__added">
+          <div *ngFor="let image of images; let i = index" class="add-file__added__file">
+            <img [src]="image" style="height: 50px; width: 50px;" />
+            <mat-icon matTooltip="Usuń zdjęcie" style="cursor: pointer;" (click)="deleteImg(i)">delete</mat-icon>
+          </div>
+        </div>
+        <button class="" mat-raised-button (click)="addFile.click()">
+          Dodaj zdjęcie
+        </button>
+        <input #addFile type="file" name="addFile" style="position: absolute; top: -500px"
+          accept="image/png, image/jpeg" (change)="fileProgress($event)" multiple />
+      </div>
+    </div>
+
+    <mat-form-field class="col-6">
+      <mat-label>Rodzaj silnika</mat-label>
+      <input type="text" matInput [formControl]="rodzajSilnika" placeholder="Benzyna/diesel/benzyna+gaz ...">
+      <mat-error *ngIf="rodzajSilnika.hasError('required')">
+        Pole wymagane
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-6">
+      <mat-label>Moc</mat-label>
+      <input type="text" matInput [formControl]="mocSilnika">
+      <mat-error *ngIf="mocSilnika.hasError('required')">
+        Pole wymagane
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-6">
+      <mat-label>Pojemność</mat-label>
+      <input type="text" matInput [formControl]="pojemnoscSilnika">
+      <mat-error *ngIf="pojemnoscSilnika.hasError('required')">
+        Pole wymagane
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-6">
+      <mat-label>Waga pojazdu</mat-label>
+      <input type="number" matInput [formControl]="waga">
+      <mat-error *ngIf="waga.hasError('required')">
+        Pole wymagane
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-12">
+      <mat-label>Dodatkowe informacje</mat-label>
+      <textarea matInput [formControl]="dodatkoweInformacje" rows="5"></textarea>
+      <mat-error *ngIf="dodatkoweInformacje.hasError('required')">
+        Pole wymagane
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-6">
+      <mat-label>Cena za dzień</mat-label>
+      <input type="text" matInput [formControl]="cena">
+      <mat-error *ngIf="cena.hasError('required')">
+        Pole wymagane
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-6">
+      <mat-label>Status pojazdu</mat-label>
+      <mat-select matNativeControl required [formControl]="status">
+        <mat-option *ngFor="let status of statusOption" [style]="'color: ' + status.color" [value]="status.status">
+          {{status.name}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="status.hasError('required')">
+        Pole wymagane
+      </mat-error>
+    </mat-form-field>
+
+    <hr class="action-hr">
+
+    <div class="actions">
+      <button mat-raised-button class="mb-1" color="warn" (click)="close()">Wyjdż</button>
+      <button mat-raised-button class="mb-1" color="primary" (click)="isEdit ? save() : addCar()">{{isEdit ? 'Zapisz' : 'Dodaj'}}</button>
+    </div>
+  </mat-dialog-content>
+</div>

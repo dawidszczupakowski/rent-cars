@@ -1,7 +1,7 @@
 <div class="confirm-rent-dialog">
   <mat-dialog-content>
     <div class="w-100 text-center">
-      <h1>Czy na pewno chcesz anulować:</h1>
+      <h1>Czy na pewno chcesz dezaktywować:</h1>
       Samochód: <h2>{{carDetail.marka}} {{carDetail.model}}</h2>
     </div>
 
@@ -9,7 +9,7 @@
 
     <div class="actions">
       <button mat-raised-button color="warn" (click)="close()">Wyjdż</button>
-      <button mat-raised-button color="primary" (click)="submit()">Dezaktywuj pojazd</button>
+      <button mat-raised-button color="primary" (click)="submit()">{{data.status === carStatusEnum.nieaktywny ? 'Dezaktywuj' : 'Aktywuj'}}</button>
     </div>
   </mat-dialog-content>
 </div>
