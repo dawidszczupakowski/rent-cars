@@ -1,0 +1,142 @@
+<div class="tenant-details-dialog__tenant-panel__header">
+  <h1>Szczegóły: {{tenant.imie}} {{tenant.nazwisko}}</h1>
+  <button *ngIf="!edit" mat-raised-button color="primary" (click)="edit = true">Edytuj dane klienta <mat-icon>edit</mat-icon></button>
+</div>
+<div class="tenant-details-dialog">
+  <mat-dialog-content>
+    <div *ngIf="!edit" class="tenant-details-dialog__tenant-panel__content">
+      <div class="tenant-details-dialog__tenant-panel__info">
+        <h1>Dane:</h1>
+        <h2><b>Imię: </b>{{tenant.imie}}</h2>
+        <h2><b>Nazwisko: </b>{{tenant.nazwisko}}</h2>
+        <h2><b>PESEL: </b>{{tenant.pesel}}</h2>
+        <h2 *ngIf="tenant.nip"><b>NIP: </b>{{tenant.nip}}</h2>
+        <h2 *ngIf="tenant.numberDowoduOsobistego"><b>Numer dowodu osobistego: </b>{{tenant.numberDowoduOsobistego}}</h2>
+        <h2><b>Adres: </b>{{tenant.adres}}</h2>
+        <h2 *ngIf="tenant.telefon"><b>Numer telefonu: </b>{{tenant.telefon}}</h2>
+        <h2 *ngIf="tenant.email"><b>Email: </b>{{tenant.email}}</h2>
+
+        <h1>Historia wypożyczonych aut:</h1>
+      </div>
+      <div class="mat-elevation-z8 tenant-rent-history">
+        <table class="w-100" mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="pojazd">
+            <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> Pojazd </th>
+            <td style="width: 20%" mat-cell *matCellDef="let row"> {{row.marka}} {{row.model}} {{row.pojemnosc}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="data">
+            <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Data wypożyczenia </th>
+            <td style="width: 15%" mat-cell *matCellDef="let row" [style.color]="row.color">
+              {{row.wypozyczenieOd | date: 'dd-MM-yyyy' }} -
+              {{row.wypozyczenieDo | date: 'dd-MM-yyyy'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="oplata">
+            <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Sposób płatności </th>
+            <td style="width: 15%" mat-cell *matCellDef="let row" style="color: orangered">
+              {{row.oplata === payStatusEnum.oplataPoOddaniu ? 'Opłata po oddaniu' : 'Opłata przy odbiorze'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Status wypożyczenia </th>
+            <td style="width: 15%" mat-cell *matCellDef="let row">
+              <span *ngIf="row.statusWypozyczenia === statusRent.anulowane" style="color: red">Anulowane</span>
+              <span *ngIf="row.statusWypozyczenia === statusRent.doAkceptacji" style="color: black">Do akceptacji</span>
+              <span *ngIf="row.statusWypozyczenia === statusRent.wypozyczone" style="color: blue">Wypożyczone</span>
+              <span *ngIf="row.statusWypozyczenia === statusRent.zakonczone" style="color: green">Zakończone</span>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="tenantDetails(row)"
+            matTooltip="Szczegóły: {{row.imie}} {{row.nazwisko}}"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">Brak danych</td>
+          </tr>
+        </table>
+
+        <mat-paginator *ngIf="rentInfo?.length > 5" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+    </div>
+
+    <div *ngIf="edit" class="tenant-details-dialog__tenant-panel__content">
+      <form [formGroup]="form" class="row">
+
+        <mat-form-field class="col-6">
+          <mat-label>Imię</mat-label>
+          <input type="text" matInput [formControl]="imie">
+          <mat-error *ngIf="imie.hasError('required')">
+            Pole wymagane
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="col-6">
+          <mat-label>Nazwisko</mat-label>
+          <input type="text" matInput [formControl]="nazwisko">
+          <mat-error *ngIf="nazwisko.hasError('required')">
+            Pole wymagane
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="col-12">
+          <mat-label>PESEL</mat-label>
+          <input type="text" maxlength="11" matInput [formControl]="pesel">
+          <mat-error *ngIf="pesel.hasError('required')">
+            Pole wymagane
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="col-6">
+          <mat-label>NIP</mat-label>
+          <input type="text" matInput [formControl]="nip">
+          <mat-error *ngIf="nip.hasError('required')">
+            Pole wymagane
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="col-6">
+          <mat-label>Numer dowodu osobistego</mat-label>
+          <input type="text" matInput [formControl]="numerDowoduOsobistego">
+          <mat-error *ngIf="numerDowoduOsobistego.hasError('required')">
+            Pole wymagane
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="col-12">
+          <mat-label>Adres</mat-label>
+          <input type="text" placeholder="Kod pocztowy miejscowość, ulica numer domu/numer mieszkania" matInput
+            [formControl]="adres">
+          <mat-error *ngIf="adres.hasError('required')">
+            Pole wymagane
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="col-6">
+          <mat-label>Numer telefonu</mat-label>
+          <input type="text" matInput [formControl]="telefon">
+          <mat-error *ngIf="telefon.hasError('required')">
+            Pole wymagane
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="col-6">
+          <mat-label>Email</mat-label>
+          <input type="text" matInput [formControl]="email">
+          <mat-error *ngIf="email.hasError('email')">
+            Błędny format adresu email
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <hr class="action-hr">
+
+    <div class="tenant-details-dialog__tenant-panel__actions">
+      <button mat-raised-button [ngClass]="!edit ? 'w-100 mb-1' : ''" [color]="edit ? 'warn' : 'primary'" (click)="close()">Wyjdż</button>
+      <button *ngIf="edit" mat-raised-button color="primary" (click)="save()">Zapisz</button>
+    </div>
+  </mat-dialog-content>
+</div>

@@ -1,3 +1,49 @@
-<p>
-  clients works!
-</p>
+<mat-form-field class="w-100 mt-2">
+  <mat-label>Wyszukaj</mat-label>
+  <input placeholder="Imię, nazwisko, pesel" matInput (keyup)="applyFilter($event)" #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table class="w-100" mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="imieNazwisko">
+      <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> Imię i nazwisko </th>
+      <td style="width: 20%" mat-cell *matCellDef="let row"> {{row.imie}} {{row.nazwisko}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="pesel">
+      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> PESEL </th>
+      <td style="width: 15%" mat-cell *matCellDef="let row"> {{row.pesel}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nip">
+      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> NIP </th>
+      <td style="width: 15%" mat-cell *matCellDef="let row"> {{row.nip}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dowodOsobisty">
+      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Dowód osobisty </th>
+      <td style="width: 15%" mat-cell *matCellDef="let row"> {{row.numerDowoduOsobistego}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="adres">
+      <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> Adres </th>
+      <td style="width: 20%" mat-cell *matCellDef="let row"> {{row.adres}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="telefonEmail">
+      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Telefon/email </th>
+      <td style="width: 15%" mat-cell *matCellDef="let row">
+        {{row.telefon}} <br/> {{row.email}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="tenantDetails(row)" matTooltip="Szczegóły: {{row.imie}} {{row.nazwisko}}"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">Brak danych</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

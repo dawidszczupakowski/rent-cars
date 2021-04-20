@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CarsModel, CarsWithPhotoModel, CarsWithPhotoModelResponse } from '../models/cars.model';
 import { ResponseModel } from '../models/response.model';
@@ -9,7 +9,7 @@ import { ResponseModel } from '../models/response.model';
   providedIn: 'root',
 })
 export class CarsService {
-  cars: CarsModel[];
+  cars = new Subject<CarsWithPhotoModel[]>();
   constructor(private http: HttpClient) { }
 
   getAllCars(): Observable<CarsWithPhotoModel[]> {
@@ -44,5 +44,13 @@ export class CarsService {
     return this.http
       .post<ResponseModel<number>>(`updateCar/${userGuid}`, car)
       .pipe(map((response) => response.result));
+  }
+  
+  afterCloseDialogs(dialog) {
+    dialog.afterClosed().subscribe(() => {
+      this.getAllCars().subscribe((cars: CarsWithPhotoModel[]) => {
+        this.cars.next(cars);
+      });
+    });
   }
 }

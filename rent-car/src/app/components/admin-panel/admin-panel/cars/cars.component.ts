@@ -44,16 +44,15 @@ export class CarsComponent implements OnInit {
 
   constructor(
     private carsService: CarsService,
-    private storageService: StorageService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit() {
+    this.carsService.cars.subscribe((cars: CarsWithPhotoModel[]) => {
+      this.setList(cars);
+    });
     this.carsService.getAllCars().subscribe((cars: CarsWithPhotoModel[]) => {
-      this.dataList = cars.sort((x, y) => y.id - x.id);
-      this.dataSource = new MatTableDataSource(this.dataList);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.setList(cars);
     });
   }
 
@@ -81,7 +80,7 @@ export class CarsComponent implements OnInit {
       data: { car: row, status: this.carStatusEnum.nieaktywny }
     });
 
-    this.afterCloseDialogs(dialogRef);
+    this.carsService.afterCloseDialogs(dialogRef);
   }
 
   activeCar(row: CarsWithPhotoModel) {
@@ -91,28 +90,17 @@ export class CarsComponent implements OnInit {
       data: { car: row, status: this.carStatusEnum.wolny }
     });
 
-    this.afterCloseDialogs(dialogRef);
+    this.carsService.afterCloseDialogs(dialogRef);
   }
 
   edit(row: CarsWithPhotoModel) {
     const dialogRef = this.dialog.open(AddEditCarDialogComponent, {
-      width: '30%',
+      width: '60%',
       maxHeight: '90%',
       data: row
     });
 
-    this.afterCloseDialogs(dialogRef);
-  }
-
-  private afterCloseDialogs(dialog) {
-    dialog.afterClosed().subscribe(() => {
-      this.carsService.getAllCars().subscribe((cars: CarsWithPhotoModel[]) => {
-        this.dataList = cars;
-        this.dataSource = new MatTableDataSource(this.dataList.sort((x, y) => y.id - x.id));
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      });
-    });
+    this.carsService.afterCloseDialogs(dialogRef);
   }
 
   addCar() {
@@ -121,8 +109,7 @@ export class CarsComponent implements OnInit {
       maxHeight: '90%'
     });
 
-    dialogRef.afterClosed().subscribe((car: CarsModel) => {
-    });
+    this.carsService.afterCloseDialogs(dialogRef);
   }
 
   onChangeSelection(selected) {
@@ -134,5 +121,12 @@ export class CarsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.currStatusPojazd = selected.value;
+  }
+
+  private setList(cars: CarsWithPhotoModel[]) {
+    this.dataList = cars;
+    this.dataSource = new MatTableDataSource(this.dataList.sort((x, y) => y.id - x.id));
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 }

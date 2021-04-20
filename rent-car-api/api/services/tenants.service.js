@@ -29,7 +29,7 @@ async function getTenant(tenantId, userGuid) {
     }
 }
 
-async function getTenant(userGuid) {
+async function getAllTenant(userGuid) {
     const user = await knex("admin").select("id").where("guid", userGuid);
     if (user.length) {
         return knex("najemcy").select("*");
@@ -39,7 +39,19 @@ async function getTenant(userGuid) {
     }
 }
 
+async function editTenant(tenant, userGuid) {
+    const user = await knex("admin").select("id").where("guid", userGuid);
+    if (user.length) {
+        return knex("najemcy").update(tenant).where('id', tenant.id);
+    }
+    return {
+        status: "error"
+    }
+}
+
 module.exports = {
     addTenant,
-    getTenant
+    getTenant,
+    getAllTenant,
+    editTenant
 }

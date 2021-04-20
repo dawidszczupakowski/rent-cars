@@ -24,8 +24,10 @@
       <div class="form-group add-file">
         <div class="add-file__added">
           <div *ngFor="let image of images; let i = index" class="add-file__added__file">
-            <img [src]="image" style="height: 50px; width: 50px;" />
-            <mat-icon matTooltip="Usuń zdjęcie" style="cursor: pointer;" (click)="deleteImg(i)">delete</mat-icon>
+            <img [src]="image" style="height: 70px;"/>
+            <div class="icon" matTooltip="Usuń zdjęcie" (click)="deleteImg(i)">
+              <mat-icon>delete</mat-icon>
+            </div>
           </div>
         </div>
         <button class="" mat-raised-button (click)="addFile.click()">

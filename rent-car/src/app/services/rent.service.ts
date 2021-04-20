@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { RentInfoModel } from '../models/rent-info.model';
+import { RentInfoByTenantModel, RentInfoModel } from '../models/rent-info.model';
 import { RentModel, RentNewCarModel } from '../models/rent.model';
 import { ResponseModel } from '../models/response.model';
 
@@ -32,6 +32,12 @@ export class RentService {
 
   getAllRentInfo(userGuid: string): Observable<RentInfoModel[]> {
     return this.http.get<ResponseModel<RentInfoModel[]>>(`getAllRentInfo/${userGuid}`).pipe(
+      map(resp => resp.result)
+    );
+  }
+
+  getAllRentInfoByTenant(tenantId: number, userGuid: string): Observable<RentInfoByTenantModel[]> {
+    return this.http.get<ResponseModel<RentInfoByTenantModel[]>>(`getAllRentInfoByTenant/${tenantId}/${userGuid}`).pipe(
       map(resp => resp.result)
     );
   }

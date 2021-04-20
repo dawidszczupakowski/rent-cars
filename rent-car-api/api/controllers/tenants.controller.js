@@ -6,6 +6,15 @@ function tenantsController(app) {
         res.status(200).json({ result: result[0] })
     });
 
+    app.post("/tenants/:userGuid", async (req, res) => {
+        const result = await db.editTenant(req.body, req.params.userGuid);
+        if (result.status === "error") {
+            res.status(401).json({ result });
+        } else {
+            res.status(200).json({ result: result[0] });
+        }
+    });
+
     app.get("/tenants/:userGuid", async (req, res) => {
         const result = await db.getAllTenant(req.params.userGuid);
         if (result.status === "error") {

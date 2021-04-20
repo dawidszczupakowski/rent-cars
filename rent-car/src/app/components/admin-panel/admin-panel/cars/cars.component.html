@@ -43,9 +43,9 @@
     <ng-container matColumnDef="status">
       <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Status wypożyczenia </th>
       <td style="width: 15%" mat-cell *matCellDef="let row">
-        <span *ngIf="row.status === carStatusEnum.wolny" style="color: green">Wolny</span>
+        <span *ngIf="row.status === carStatusEnum.wolny" style="color: black">Wolny</span>
         <span *ngIf="row.status === carStatusEnum.zarezerwowany" style="color: blue">Zarezerwowany</span>
-        <span *ngIf="row.status === carStatusEnum.wypozyczony" style="color: orangered">Wypożyczony</span>
+        <span *ngIf="row.status === carStatusEnum.wypozyczony" style="color: green">Wypożyczony</span>
         <span *ngIf="row.status === carStatusEnum.nieaktywny" style="color: red">Nieaktywny</span>
       </td>
     </ng-container>

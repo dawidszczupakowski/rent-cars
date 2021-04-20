@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ResponseModel } from '../models/response.model';
 import { TenantModel } from '../models/tenant.model';
 
 @Injectable({
@@ -15,6 +17,12 @@ export class TenantsService {
   }
 
   getAllTenant(userGuid: string): Observable<TenantModel[]> {
-    return this.http.get<TenantModel[]>(`tenants/${userGuid}`);
+    return this.http.get<ResponseModel<TenantModel[]>>(`tenants/${userGuid}`).pipe(
+      map(resp => resp.result)
+    );
+  }
+
+  editTenant(tenant: TenantModel, userGuid: string): Observable<number> {
+    return this.http.post<number>(`tenants/${userGuid}`, tenant);
   }
 }

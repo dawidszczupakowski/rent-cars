@@ -80,10 +80,24 @@ async function getAllRentedInfo(userGuid) {
     };
 }
 
+async function getAllRentedInfoByTenant(tenantId, userGuid) {
+    const user = await knex("admin").select("id").where("guid", userGuid);
+
+    if (user.length) {
+        return await knex.select(knex.ref('wypozyczone.id').as('wypozyczenieId'), 'wypozyczone.*', 'pojazdy.*').from("wypozyczone").join('pojazdy', {
+            'pojazdy.id': 'wypozyczone.idPojazdu'
+        }).where('wypozyczone.najemcaId', tenantId);
+    }
+    return {
+        status: "error"
+    };
+}
+
 module.exports = {
     addRent,
     getRent,
     getAllRent,
     updateRent,
-    getAllRentedInfo
+    getAllRentedInfo,
+    getAllRentedInfoByTenant
 };

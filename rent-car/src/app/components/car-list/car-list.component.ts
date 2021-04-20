@@ -35,7 +35,6 @@ export class CarListComponent implements OnInit {
   getCars(): void {
     this.carsService.getAllCars().subscribe((cars: CarsWithPhotoModel[]) => {
       this.carsList = cars.filter(x => x.status === this.statusEnum.wolny);
-      this.carsService.cars = cars;
       this.carsListLength = this.carsList.length;
     });
   }

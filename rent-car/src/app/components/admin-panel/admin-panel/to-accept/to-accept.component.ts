@@ -10,6 +10,7 @@ import { RentService } from 'src/app/services/rent.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { ConfirmRentComponent } from './confirm-rent/confirm-rent.component';
 import { RejectRentComponent } from '../shared/reject-rent/reject-rent.component';
+import { CarsService } from 'src/app/services/cars.service';
 
 @Component({
   selector: 'app-to-accept',
@@ -28,7 +29,8 @@ export class ToAcceptComponent implements OnInit {
   constructor(
     private rentService: RentService,
     private storageService: StorageService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private carsService: CarsService
   ) { }
 
   ngOnInit() {
@@ -57,6 +59,7 @@ export class ToAcceptComponent implements OnInit {
       data: row
     });
 
+    this.carsService.afterCloseDialogs(dialogRef);
     this.afterCloseDialogs(dialogRef);
   }
 
@@ -67,6 +70,7 @@ export class ToAcceptComponent implements OnInit {
       data: row
     });
 
+    this.carsService.afterCloseDialogs(dialogRef);
     this.afterCloseDialogs(dialogRef);
   }
 

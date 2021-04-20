@@ -41,6 +41,15 @@ function rentController(app) {
             res.status(200).json({ result });
         }
     });
+
+    app.get("/getAllRentInfoByTenant/:tenantId/:userGuid", async (req, res) => {
+        const result = await db.getAllRentedInfoByTenant(req.params.tenantId, req.params.userGuid);
+        if (result.status === "error") {
+            res.status(401).json({ result });
+        } else {
+            res.status(200).json({ result });
+        }
+    });
 }
  module.exports = {
      rentController
