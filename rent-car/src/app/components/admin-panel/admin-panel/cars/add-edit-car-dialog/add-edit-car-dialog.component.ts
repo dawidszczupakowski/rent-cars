@@ -58,6 +58,10 @@ export class AddEditCarDialogComponent implements OnInit {
     return this.form.get('pojemnoscSilnika');
   }
 
+  get numerRejestracyjny() {
+    return this.form.get('numerRejestracyjny');
+  }
+
   get waga() {
     return this.form.get('waga');
   }
@@ -91,6 +95,7 @@ export class AddEditCarDialogComponent implements OnInit {
       rodzajSilnika: ['', Validators.required],
       mocSilnika: ['', Validators.required],
       pojemnoscSilnika: ['', Validators.required],
+      numerRejestracyjny: ['', Validators.required],
       waga: ['', Validators.required],
       dodatkoweInformacje: ['', Validators.required],
       cena: ['', Validators.required],

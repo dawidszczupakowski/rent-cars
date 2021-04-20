@@ -26,18 +26,23 @@
   <table class="w-100" mat-table [dataSource]="dataSource" matSort>
 
     <ng-container matColumnDef="marka">
-      <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> Marka </th>
-      <td style="width: 20%" mat-cell *matCellDef="let row">{{row.marka}}</td>
+      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Marka </th>
+      <td style="width: 15%" mat-cell *matCellDef="let row">{{row.marka}}</td>
     </ng-container>
 
     <ng-container matColumnDef="model">
-      <th style="width: 20%" mat-header-cell *matHeaderCellDef mat-sort-header> Model </th>
-      <td style="width: 20%" mat-cell *matCellDef="let row"> {{row.model}} </td>
+      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Model </th>
+      <td style="width: 15%" mat-cell *matCellDef="let row"> {{row.model}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="numerRejestracyjny">
+      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Numer rejestracyjny </th>
+      <td style="width: 15%" mat-cell *matCellDef="let row"> {{row.numerRejestracyjny}} </td>
     </ng-container>
 
     <ng-container matColumnDef="cena">
-      <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header> Cena </th>
-      <td style="width: 15%" mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.cena}} </td>
+      <th style="width: 10%" mat-header-cell *matHeaderCellDef mat-sort-header> Cena </th>
+      <td style="width: 10%" mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.cena}} </td>
     </ng-container>
 
     <ng-container matColumnDef="status">

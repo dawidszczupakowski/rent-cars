@@ -51,7 +51,8 @@ export class RejectRentComponent implements OnInit {
       pojemnoscSilnika: this.data.pojemnoscSilnika,
       rodzajSilnika: this.data.rodzajSilnika,
       status: this.carStatusEnum.wolny,
-      waga: this.data.waga
+      waga: this.data.waga,
+      numerRejestracyjny: this.data.numerRejestracyjny
     } as CarsModel;
     
     this.rentService.updateRent(this.storageService.loggedUser, rentToSend).subscribe((x) => {

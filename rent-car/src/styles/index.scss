@@ -47,3 +47,9 @@ td {
   font-size: 16px !important;
   max-width: 600px !important;
 }
+
+.mat-dialog-container {
+  button {
+    min-width: 200px;
+  }
+}

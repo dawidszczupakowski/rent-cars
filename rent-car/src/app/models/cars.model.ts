@@ -11,6 +11,7 @@ export interface CarsModel {
     dodatkoweInformacje: string;
     cena: number;
     status: CarStatusEnum;
+    numerRejestracyjny: string;
     blobId: number;
 }
 

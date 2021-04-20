@@ -125,6 +125,7 @@ export class CarRentDialogComponent implements OnInit {
       waga: this.car.waga,
       pojemnoscSilnika: this.car.pojemnoscSilnika,
       rodzajSilnika: this.car.rodzajSilnika,
+      numerRejestracyjny: this.car.numerRejestracyjny
     };
 
     rent.rentDetails.statusWypozyczenia = this.statusWypEnum.doAkceptacji;

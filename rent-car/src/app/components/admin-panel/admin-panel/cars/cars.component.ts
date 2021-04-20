@@ -17,7 +17,7 @@ import { CarDetailsDialogComponent } from './car-details-dialog/car-details-dial
   styleUrls: ['./cars.component.scss']
 })
 export class CarsComponent implements OnInit {
-  displayedColumns: string[] = ['marka', 'model', 'cena', 'status', 'akcje'];
+  displayedColumns: string[] = ['marka', 'model', 'numerRejestracyjny', 'cena', 'status', 'akcje'];
   dataSource: MatTableDataSource<CarsWithPhotoModel>;
   carStatusEnum = CarStatusEnum;
   currStatusPojazd = "Wszystkie";
@@ -105,7 +105,7 @@ export class CarsComponent implements OnInit {
 
   addCar() {
     const dialogRef = this.dialog.open(AddEditCarDialogComponent, {
-      width: '30%',
+      width: '60%',
       maxHeight: '90%'
     });
 
